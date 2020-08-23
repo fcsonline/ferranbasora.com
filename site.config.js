@@ -1,15 +1,16 @@
 export default {
   siteMetadata: {
-    title: "Next.js Starter Blog",
+    title: "Ferran Basora Blog",
     author: {
-      name: "Jose Felix",
-      summary: "who works building clean user interfaces with React.",
+      name: "Ferran Basora",
+      summary: "We need a tool™ #rust, #opensource, #security, #webperf",
     },
     description: "A blog created with Next.js and Tailwind.css",
-    siteUrl: "https://nextjs-starter-blog-demo.netlify.app/",
+    siteUrl: "https://www.ferranbasora.com/",
     language: "en-US",
     social: {
-      twitter: "Jose_R_Felix",
+      twitter: "openfcsonline",
+      github: "fcsonline",
     },
   },
 };

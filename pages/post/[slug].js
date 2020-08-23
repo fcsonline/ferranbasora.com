@@ -12,14 +12,19 @@ const CodeBlock = ({ language, value }) => {
   return <SyntaxHighlighter language={language}>{value}</SyntaxHighlighter>;
 };
 
-const MarkdownImage = ({ alt, src }) => (
-  <Image
-    alt={alt}
-    src={require(`../../content/assets/${src}`)}
-    previewSrc={require(`../../content/assets/${src}?lqip`)}
-    className="w-full"
-  />
-);
+const MarkdownImage = ({ alt, src }) => {
+  const assetSrc = require(`../../content/assets/${src}`)
+  const assetPreviewSrc = !src.endsWith('.gif') ? require(`../../content/assets/${src}?lqip`) : null
+
+  return (
+    <Image
+      alt={alt}
+      src={assetSrc}
+      previewSrc={assetPreviewSrc}
+      className="w-full"
+    />
+  );
+}
 
 export default function Post({ post, frontmatter, nextPost, previousPost }) {
   return (
@@ -27,6 +32,7 @@ export default function Post({ post, frontmatter, nextPost, previousPost }) {
       <SEO
         title={frontmatter.title}
         description={frontmatter.description || post.excerpt}
+        canonical={frontmatter.canonical}
       />
 
       <article>
