@@ -2,19 +2,17 @@ import Link from "next/link";
 
 import Layout from "components/Layout";
 import SEO from "components/Seo";
-import Intro from "components/Intro";
 import Title from "components/Title";
 import Posts from "components/Posts";
 
 import { getSortedPosts } from "utils/posts";
 
-export default function Home({ posts }) {
+export default function PostList ({ posts }) {
   return (
     <Layout>
-      <SEO title="Home" />
-      <Intro className="my-14" />
-      <Title>Recent posts</Title>
-      <Posts posts={posts.slice(0, 2)}/>
+      <SEO title="All posts" />
+      <Title>All posts</Title>
+      <Posts posts={posts}/>
     </Layout>
   );
 }

@@ -2,9 +2,9 @@ import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
 
-export function getPostsFolders() {
+export function getProjectsFolders() {
   return fs
-    .readdirSync(`${process.cwd()}/content/posts`)
+    .readdirSync(`${process.cwd()}/content/projects`)
     .map((directory) => ({
       directory
     }));
@@ -22,14 +22,14 @@ function minuteRead(content) {
   return Math.round(content.length / 1500)
 }
 
-export function getSortedPosts() {
-  const postFolders = getPostsFolders();
+export function getSortedProjects() {
+  const projectFolders = getProjectsFolders();
 
-  const posts = postFolders
+  const projects = projectFolders
     .map(({ directory }) => {
       // Get raw content from file
       const markdownWithMetadata = fs
-        .readFileSync(`content/posts/${directory}/index.md`)
+        .readFileSync(`content/projects/${directory}/index.md`)
         .toString();
 
       // Parse markdown, get frontmatter data, excerpt and content.
@@ -57,13 +57,13 @@ export function getSortedPosts() {
       (a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
     );
 
-  return posts;
+  return projects;
 }
 
-export function getPostsSlugs() {
-  const postFolders = getPostsFolders();
+export function getProjectsSlugs() {
+  const projectFolders = getProjectsFolders();
 
-  const paths = postFolders.map(({ directory }) => ({
+  const paths = projectFolders.map(({ directory }) => ({
     params: {
       slug: directory
     },
@@ -72,15 +72,15 @@ export function getPostsSlugs() {
   return paths;
 }
 
-export function getPostBySlug(slug) {
-  const posts = getSortedPosts();
+export function getProjectBySlug(slug) {
+  const projects = getSortedProjects();
 
-  const postIndex = posts.findIndex(({ slug: postSlug }) => postSlug === slug);
+  const projectIndex = projects.findIndex(({ slug: projectSlug }) => projectSlug === slug);
 
-  const { frontmatter, content, excerpt, duration } = posts[postIndex];
+  const { frontmatter, content, excerpt, duration } = projects[projectIndex];
 
-  const previousPost = posts[postIndex + 1];
-  const nextPost = posts[postIndex - 1];
+  const previousProject = projects[projectIndex + 1];
+  const nextProject = projects[projectIndex - 1];
 
-  return { frontmatter, duration, post: { content, excerpt }, previousPost, nextPost };
+  return { frontmatter, duration, project: { content, excerpt }, previousProject, nextProject };
 }

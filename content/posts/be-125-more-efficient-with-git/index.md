@@ -4,6 +4,8 @@ description: >
   Improve your daily Git interactions with this awesome set of command line
   aliases, powered by FZF. You will be able to switch, rebase and fixup commits
   in a blink of an eye.
+tags:
+  - git
 date: 2016-10-17
 canonical: https://medium.com/hackernoon/be-125-more-efficient-with-git-60556a1ce971
 repository: https://github.com/fcsonline/dotfiles/blob/master/git/gitconfig#L41

@@ -4,6 +4,9 @@ description: >
   A walkthrough explaining the process to rebuild the web interface of
   Transmission with a modern stack, replacing old jQuery functionality with
   React and Mobx libraries.
+tags:
+  - react
+  - mobx
 date: 2017-02-03
 canonical: https://medium.com/hackernoon/rewriting-transmission-ui-with-react-8f76c44c1c54
 repository: https://github.com/fcsonline/react-transmission

@@ -3,6 +3,8 @@ title: Content vs Container
 description: >
   Learn how to split UI components and distribute their behaviour in a way that
   will let you build better and more maintainable interfaces.
+tags:
+  - react
 date: 2016-12-02
 canonical: https://medium.com/hackernoon/content-vs-container-e0a1ada681c1
 ---
@@ -325,8 +327,3 @@ of quality adding value to many parts of it at once.
 
 Try to think in containers and content every time you are creating new
 component and you will be able to figure out the best for you!
-
----
-
-If you like this article, please click on the ❤️ button below and follow this
-publication so you don't miss out.

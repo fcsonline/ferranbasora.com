@@ -2,9 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* a { */
-/*   @apply text-neon-orange; */
-/* } */
+a {
+  @apply font-semibold;
+}
 
 /* a:hover { */
 /*   @apply underline; */

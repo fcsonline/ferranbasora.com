@@ -22,10 +22,10 @@ export default function SEO({ title, description = "", canonical }) {
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:creator" content={siteMetadata.social.twitter} />
 
-      <link rel="icon" type="image/png" href="/static/favicon.ico" />
-      <link rel="apple-touch-icon" href="/static/favicon.ico" />
-      <link rel="apple-touch-icon" href="/static/favicon.ico" />
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap" rel="stylesheet"/>
+      <link rel="icon" type="image/png" href="/favicon.png" />
+      <link rel="apple-touch-icon" href="/favicon.png" />
+
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;700&display=swap" rel="stylesheet"/>
 
       {canonical && (<link rel="canonical" href={canonical} />)}
 
