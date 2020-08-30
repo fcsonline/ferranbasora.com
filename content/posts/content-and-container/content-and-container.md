@@ -1,5 +1,8 @@
 ---
 title: Content vs Container
+description: >
+  Learn how to split UI components and distribute their behaviour in a way that
+  will let you build better and more maintainable interfaces.
 date: 2016-12-02
 canonical: https://medium.com/hackernoon/content-vs-container-e0a1ada681c1
 ---

@@ -2,13 +2,13 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-a {
-  @apply text-neon-orange;
-}
+/* a { */
+/*   @apply text-neon-orange; */
+/* } */
 
-a:hover {
-  @apply underline;
-}
+/* a:hover { */
+/*   @apply underline; */
+/* } */
 
 span,
 p {
@@ -19,7 +19,7 @@ p {
 .blur-up {
   -webkit-filter: blur(5px);
   filter: blur(5px);
-  transition: filter 500ms ease-in, -webkit-filter 500ms ease-in;
+  transition: filter 300ms ease-in, -webkit-filter 300ms ease-in;
 }
 
 .blur-up.lazyloaded {

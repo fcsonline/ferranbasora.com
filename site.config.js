@@ -1,6 +1,6 @@
 export default {
   siteMetadata: {
-    title: "Ferran Basora Blog",
+    title: "~ferran.basora",
     author: {
       name: "Ferran Basora",
       summary: "We need a tool™ #rust, #opensource, #security, #webperf",

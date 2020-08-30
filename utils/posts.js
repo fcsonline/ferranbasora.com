@@ -22,6 +22,10 @@ function getFormattedDate(date) {
   return formattedDate;
 }
 
+function minuteRead(content) {
+  return Math.round(content.length / 1500)
+}
+
 export function getSortedPosts() {
   const postFolders = getPostsFolders();
 
@@ -35,6 +39,8 @@ export function getSortedPosts() {
       // Parse markdown, get frontmatter data, excerpt and content.
       const { data, excerpt, content } = matter(markdownWithMetadata);
 
+      if (data.draft) return null
+
       const frontmatter = {
         ...data,
         date: getFormattedDate(data.date),
@@ -42,14 +48,17 @@ export function getSortedPosts() {
 
       // Remove .md file extension from post name
       const slug = filename.replace(".md", "");
+      const duration = minuteRead(content)
 
       return {
         slug,
         frontmatter,
         excerpt,
+        duration,
         content,
       };
     })
+    .filter(a => !!a)
     .sort(
       (a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
     );

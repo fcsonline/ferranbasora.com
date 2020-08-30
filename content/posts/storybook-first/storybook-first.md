@@ -1,6 +1,7 @@
 ---
 title: Storybook first
 date: 2019-12-31
+draft: true
 ---
 
 Many times we have read and heard about the expression _Mobile first_ when we

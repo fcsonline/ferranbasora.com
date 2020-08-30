@@ -26,9 +26,9 @@ module.exports = {
   purge: ["./**/{pages,components,tailwind}/**/*.{js,jsx,ts,tsx,css}"],
   theme: {
     extend: {
-      colors: {
-        "neon-orange": "#f92300",
-      },
+      // colors: {
+      //   "neon-orange": "#f92300",
+      // },
       fontSize: {
         "7xl": "4.5rem",
       },
@@ -37,8 +37,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      display: ["Open Sans", ...defaultSans],
-      body: ["Merriweather", ...defaultSerif],
+      display: ["Inter", ...defaultSans],
+      body: ["Inter", ...defaultSerif],
     },
     typography: (theme) => ({
       default: {
@@ -52,9 +52,6 @@ module.exports = {
           },
           "ul > li::before": {
             backgroundColor: theme("colors.gray.700"),
-          },
-          a: {
-            color: "#f92300",
           },
         },
       },

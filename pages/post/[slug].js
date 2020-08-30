@@ -5,8 +5,9 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import Layout from "components/Layout";
 import Image from "components/Image";
 import SEO from "components/Seo";
-import { getPostBySlug, getPostsSlugs } from "utils/posts";
 import Bio from "components/Bio";
+
+import { getPostBySlug, getPostsSlugs } from "utils/posts";
 
 const CodeBlock = ({ language, value }) => {
   return <SyntaxHighlighter language={language}>{value}</SyntaxHighlighter>;
