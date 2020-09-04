@@ -1,3 +1,4 @@
+import Image from "./Image";
 import { getSiteMetaData } from "utils/helpers";
 
 export default function Intro() {

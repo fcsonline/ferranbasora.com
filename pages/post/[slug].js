@@ -6,11 +6,34 @@ import Image from "components/Image";
 import SEO from "components/Seo";
 import Bio from "components/Bio";
 import CodeBlock from "components/CodeBlock";
-import MarkdownImage from "components/MarkdownImage";
 
 import { getPostBySlug, getPostsSlugs } from "utils/posts";
 
-export default function Post({ post, frontmatter, duration, nextPost, previousPost }) {
+export default function Post({ post, slug, frontmatter, duration, nextPost, previousPost }) {
+  const MarkdownImage = ({ src, alt }) => {
+    const assetSrc = () => {
+      if (src.startsWith('http')) return src
+
+      return require(`../../content/posts/${slug}/${src}`)
+    }
+
+    const assetPreviewSrc = () => {
+      if (src.startsWith('http')) return src
+      if (src.endsWith('.gif')) return null
+
+      return require(`../../content/posts/${slug}/${src}?lqip`)
+    }
+
+    return (
+      <Image
+        alt={alt}
+        src={assetSrc()}
+        previewSrc={assetPreviewSrc()}
+        className="w-full"
+      />
+    )
+  }
+
   return (
     <Layout>
       <SEO
@@ -29,7 +52,7 @@ export default function Post({ post, frontmatter, duration, nextPost, previousPo
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
 
-            {frontmatter.date}
+            {frontmatter.date} slug: {slug}
           </span>
           <span className="text-sm ml-2">·</span>
           <span className="text-sm ml-2 text-gray-700">

@@ -3,11 +3,22 @@ import Link from "next/link";
 import Layout from "components/Layout";
 import SEO from "components/Seo";
 import Title from "components/Title";
+import Image from "components/Image";
+import { getSiteMetaData } from "utils/helpers";
 
 export default function About() {
+  const { author } = getSiteMetaData();
+
   return (
     <Layout>
       <SEO title="About" />
+
+      <Image
+        className="mr-3 rounded-full w-20 h-20"
+        src={require("../content/assets/profile.jpg")}
+        previewSrc={require("../content/assets/profile.jpg?lqip")}
+        alt={author.name}
+      />
 
       <p className="mb-6 mt-12 text-lg text-gray-800">
         Hi, I'm Ferran.

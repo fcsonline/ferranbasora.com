@@ -4,8 +4,8 @@ export default function Projects({ projects }) {
   return (
     <div className="grid grid-flow-col grid-cols-2 grid-rows-2 gap-4 mb-16">
       {projects.map(({ frontmatter: { title, description, image, date, tags }, slug, duration }) => (
-        <Link key={title} href={"/projects/[slug]"} as={`/projects/${slug}`}>
-          <a>
+        <Link href={"/projects/[slug]"} as={`/projects/${slug}`}>
+          <a key={title}>
             <div className="flex h-48 bg-white hover:shadow-lg shadow-md rounded-lg overflow-hidden">
               <div className="w-1/3 bg-cover" style={{  backgroundImage: `url('${image}')`  }}></div>
 

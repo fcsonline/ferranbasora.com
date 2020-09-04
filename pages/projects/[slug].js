@@ -2,14 +2,38 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown/with-html";
 
 import Layout from "components/Layout";
+import Image from "components/Image";
 import SEO from "components/Seo";
 import Bio from "components/Bio";
 import CodeBlock from "components/CodeBlock";
-import MarkdownImage from "components/MarkdownImage";
 
 import { getProjectBySlug, getProjectsSlugs } from "utils/projects";
 
-export default function Project({ project, frontmatter, duration, nextProject, previousProject }) {
+export default function Project({ project, slug, frontmatter, duration, nextProject, previousProject }) {
+  const MarkdownImage = ({ src, alt }) => {
+    const assetSrc = () => {
+      if (src.startsWith('http')) return src
+
+      return require(`../../content/projects/${slug}/${src}`)
+    }
+
+    const assetPreviewSrc = () => {
+      if (src.startsWith('http')) return src
+      if (src.endsWith('.gif')) return null
+
+      return require(`../../content/projects/${slug}/${src}?lqip`)
+    }
+
+    return (
+      <Image
+        alt={alt}
+        src={assetSrc()}
+        previewSrc={assetPreviewSrc()}
+        className="w-full"
+      />
+    )
+  }
+
   return (
     <Layout>
       <SEO
