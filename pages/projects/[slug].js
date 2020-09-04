@@ -34,6 +34,7 @@ export default function Project({ project, frontmatter, duration, nextProject, p
         <ReactMarkdown
           className="mb-4 prose-sm prose sm:prose lg:prose-lg"
           escapeHtml={false}
+          linkTarget={(url) => (url.startsWith('http') ? '_blank' : null)}
           source={project.content}
           renderers={{ code: CodeBlock, image: MarkdownImage }}
         />

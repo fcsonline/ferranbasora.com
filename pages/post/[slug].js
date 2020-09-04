@@ -45,6 +45,7 @@ export default function Post({ post, frontmatter, duration, nextPost, previousPo
           className="mb-4 prose-sm prose sm:prose lg:prose-lg"
           escapeHtml={false}
           source={post.content}
+          linkTarget={(url) => (url.startsWith('http') ? '_blank' : null)}
           renderers={{ code: CodeBlock, image: MarkdownImage }}
         />
       </article>

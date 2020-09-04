@@ -35,3 +35,6 @@ I was curious to know if this was possible to be written in
 doable. The ability to implement tests for all critic parts of the application
 give you a great confidence about it. On the other hand, Rust has an awesome
 community that lets you achieve this kind of project in a short period of time.
+
+## Demo
+[![demo](https://asciinema.org/a/232775.png?ts=1)](https://asciinema.org/a/232775?autoplay=1)

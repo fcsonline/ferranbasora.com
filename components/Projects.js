@@ -6,7 +6,7 @@ export default function Projects({ projects }) {
       {projects.map(({ frontmatter: { title, description, image, date, tags }, slug, duration }) => (
         <Link key={title} href={"/projects/[slug]"} as={`/projects/${slug}`}>
           <a>
-            <div className="flex h-56 bg-white hover:shadow-lg shadow-md rounded-lg overflow-hidden">
+            <div className="flex h-48 bg-white hover:shadow-lg shadow-md rounded-lg overflow-hidden">
               <div className="w-1/3 bg-cover" style={{  backgroundImage: `url('${image}')`  }}></div>
 
               <div className="w-2/3 p-4 md:p-4">

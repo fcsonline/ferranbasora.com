@@ -1,14 +1,24 @@
 import Image from "components/Image";
 
-export default function MarkdownImage ({ alt, src }) {
-  const assetSrc = require(`../content/assets/${src}`)
-  const assetPreviewSrc = !src.endsWith('.gif') ? require(`../content/assets/${src}?lqip`) : null
+const assetSrc = (src) => {
+  if (src.startsWith('http')) return src
 
+  return require(`../content/assets/${src}`)
+}
+
+const assetPreviewSrc = (src) => {
+  if (src.startsWith('http')) return src
+  if (src.endsWith('.gif')) return null
+
+  return require(`../content/assets/${src}?lqip`)
+}
+
+export default function MarkdownImage ({ alt, src }) {
   return (
     <Image
       alt={alt}
-      src={assetSrc}
-      previewSrc={assetPreviewSrc}
+      src={assetSrc(src)}
+      previewSrc={assetPreviewSrc(src)}
       className="w-full"
     />
   );
