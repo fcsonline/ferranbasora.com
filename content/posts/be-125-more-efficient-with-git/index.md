@@ -30,7 +30,7 @@ most ancient commands in UNIX. It takes an input and you can filter it to
 choose what you want in a interactive shell. So you can do things like this
 example:
 
-[Demo](https://asciinema.org/a/22tnlseff7yuw62fc73nfelns)
+[![demo](https://asciinema.org/a/22tnlseff7yuw62fc73nfelns.png?ts=1)](https://asciinema.org/a/22tnlseff7yuw62fc73nfelns?autoplay=1)
 
 I recommend to you to play with it a bit and start thinking about all the
 possibilities you can do with it. Review all the available FZF options and you
@@ -69,7 +69,7 @@ Internally what this command is doing is:
 
 `git checkout $(git recent | fzf)`
 
-[Demo](http://asciinema.org/a/15lmglaf6ojo44jo0fbv4tt6c)
+[![demo](https://asciinema.org/a/15lmglaf6ojo44jo0fbv4tt6c.png?ts=1)](https://asciinema.org/a/15lmglaf6ojo44jo0fbv4tt6c?autoplay=1)
 
 ### Edit uncommitted files
 
@@ -84,7 +84,7 @@ Internally what this command is doing is:
 
 This command supports multiselection!
 
-[Demo](https://asciinema.org/a/7fbnjgoh41bg2ek9un5rxgn3x)
+[![demo](https://asciinema.org/a/7fbnjgoh41bg2ek9un5rxgn3x.png?ts=1)](https://asciinema.org/a/7fbnjgoh41bg2ek9un5rxgn3x?autoplay=1)
 
 ### Interactive rebase
 
@@ -99,7 +99,7 @@ Internally what this command is doing is:
 
 `git rebase -i $(git log --pretty=oneline | fzf)^`
 
-[Demo](http://asciinema.org/a/b8xhvbr2rpw0cnjr2ga0dh0kh)
+[![demo](https://asciinema.org/a/b8xhvbr2rpw0cnjr2ga0dh0kh.png?ts=1)](https://asciinema.org/a/b8xhvbr2rpw0cnjr2ga0dh0kh?autoplay=1)
 
 ### Edit files in a commit
 
@@ -110,7 +110,7 @@ specific commit and you want to select it. I execute this:
 
 This command supports multiselection!
 
-[Demo](https://asciinema.org/a/c0y4ywx3wj5i8wh2epf08a51a)
+[![demo](https://asciinema.org/a/c0y4ywx3wj5i8wh2epf08a51a.png?ts=1)](https://asciinema.org/a/c0y4ywx3wj5i8wh2epf08a51a?autoplay=1)
 
 ### Interactive fixup
 
@@ -119,7 +119,7 @@ want to select it. I stage some changes and then I execute this:
 
 `git pamfix`
 
-[Demo](https://asciinema.org/a/699sr7ume88wemx9p57n0ipr4)
+[![demo](https://asciinema.org/a/699sr7ume88wemx9p57n0ipr4.png?ts=1)](https://asciinema.org/a/699sr7ume88wemx9p57n0ipr4?autoplay=1)
 
 ## Conclusion
 
@@ -128,5 +128,3 @@ If you are interested in more useful commands like those, check my
 out.
 
 Happy hacking!
-
-Thanks for reading,
