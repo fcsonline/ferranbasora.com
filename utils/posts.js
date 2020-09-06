@@ -61,11 +61,11 @@ export function getSortedPosts() {
 }
 
 export function getPostsSlugs() {
-  const postFolders = getPostsFolders();
+  const posts = getSortedPosts();
 
-  const paths = postFolders.map(({ directory }) => ({
+  const paths = posts.map(({ slug }) => ({
     params: {
-      slug: directory
+      slug
     },
   }));
 
