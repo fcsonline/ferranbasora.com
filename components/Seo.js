@@ -13,6 +13,8 @@ export default function SEO({ title, description = "", canonical }) {
       </title>
       <meta name="description" content={metaDescription} />
 
+      <meta name="image" content={require("../content/assets/profile.jpg")} />
+
       <meta property="og:type" content="website" />
       <meta name="og:title" property="og:title" content={title} />
       <meta name="og:description" property="og:description" content={metaDescription} />
