@@ -10,7 +10,6 @@ date: 2019-03-02
 repository: https://github.com/fcsonline/drill
 ---
 
-
 As I said, this project is based in
 [tmux-fingers](https://github.com/Morantron/tmux-fingers). Morantron did an
 extraordinary job, building all necessary pieces in Bash to achieve the text
