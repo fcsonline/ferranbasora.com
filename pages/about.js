@@ -32,7 +32,11 @@ export default function About() {
 
       <p className="mb-6 text-lg text-gray-800">
         Then I was enlighted by Linux and all the topics that bring the open
-        source community. Right now, I'm working on
+        source community.
+      </p>
+
+      <p className="mb-6 text-lg text-gray-800">
+        Right now, I'm working on
         <a className='mx-1' href="https://github.com/fcsonline/drill">Drill</a>
         project, a HTTP load testing application written in
         <a className='ml-1' href="https://www.rust-lang.org/">Rust</a>. On the other hand,
