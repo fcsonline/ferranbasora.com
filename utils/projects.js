@@ -82,5 +82,5 @@ export function getProjectBySlug(slug) {
   const previousProject = projects[projectIndex + 1];
   const nextProject = projects[projectIndex - 1];
 
-  return { frontmatter, duration, project: { content, excerpt }, previousProject, nextProject };
+  return { frontmatter, slug, duration, project: { content, excerpt }, previousProject, nextProject };
 }
