@@ -21,7 +21,7 @@ export default function Projects({ projects }) {
 
                   <div className="flex item-center mt-2">
                     {tags.map((tag) => (
-                      <span key={tag} className="text-gray-900 font-semibold">#{tags}</span>
+                      <span key={tag} className="text-gray-900 font-semibold mr-2">#{tag}</span>
                     ))}
                   </div>
                 </div>

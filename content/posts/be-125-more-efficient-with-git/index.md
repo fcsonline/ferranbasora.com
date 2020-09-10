@@ -22,7 +22,8 @@ the commands I have typed and see if I can execute them faster.
 
 Few months ago, a friend of mine was trying to polish his daily pain points too
 and he created this awesome plugin for tmux called tmux-fingers but I decided
-to take another path. At the same time I discovered FZF and I thought it would
+to take another path. At the same time I discovered
+[FZF](https://github.com/junegunn/fzf) and I thought it would
 be an interesting tool to play with.
 
 This command-line fuzzy finder does one thing and does it well, just like the

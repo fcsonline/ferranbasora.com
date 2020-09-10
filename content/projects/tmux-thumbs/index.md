@@ -9,11 +9,16 @@ date: 2019-03-02
 repository: https://github.com/fcsonline/drill
 ---
 
-As I said, this project is based in
-[tmux-fingers](https://github.com/Morantron/tmux-fingers). Morantron did an
-extraordinary job, building all necessary pieces in Bash to achieve the text
-picker behaviour. He only deserves my gratitude for all the time I have been
-using [tmux-fingers](https://github.com/Morantron/tmux-fingers).
+I'm a daily user of [Tmux](https://github.com/tmux/tmux) as my favorite
+terminal multiplexer. One day, talking to
+[Jorge](https://github.com/Morantron), he impressed me with a new hint
+picker in the terminal. He was able to pick paths, sha's and other
+interesting stuff with few keystrokes. My reaction was priceless.
+
+Jorge did an extraordinary job, building all necessary pieces in Bash to
+achieve the text picker behaviour. He only deserves my gratitude for all the
+time I have been using
+[tmux-fingers](https://github.com/Morantron/tmux-fingers).
 
 During a [Fosdem](https://fosdem.org/) conf, we had the idea to rewrite it to
 another language. He had these thoughts many times ago but it was hard to start
