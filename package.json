@@ -13,7 +13,7 @@
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",
     "lazysizes": "^5.2.2",
-    "lqip-loader": "^2.2.0",
+    "lqip-loader": "git://github.com/zouhir/lqip-loader.git#0b552d751cb30b82bd09656331315c25a11a62ca",
     "next": "9.5.0",
     "next-compose-plugins": "^2.2.0",
     "next-optimized-images": "^2.6.1",
