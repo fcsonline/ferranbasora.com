@@ -15,7 +15,7 @@ export default function Projects({ projects }) {
                 </div>
 
                 <div className="w-2/3 p-4 md:p-4">
-                  <h1 className="text-gray-900 font-bold text-xl">{ title }</h1>
+                  <h3 className="text-gray-900 font-bold text-xl">{ title }</h3>
 
                   <p className="mt-2 text-gray-600 text-sm">{ description }</p>
 
