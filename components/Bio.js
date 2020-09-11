@@ -26,7 +26,7 @@ export default function Bio({ className }) {
           Twitter
         </a>.
       </p>
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-gray-700">
         {author.summary}
       </p>
     </div>
