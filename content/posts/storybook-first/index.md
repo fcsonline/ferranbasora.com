@@ -53,7 +53,7 @@ In whatever design one of the most important constants is the palette of colors.
 
 #### Typography
 
-When we talk about UI design another fundamental constant usually is the set of font families, font size and line height used arround. They bring consistency and order importance of all texts in your interface. In the the _Typography_ token we can setup common properties like `font-family`, `font-size` or `line-height`.
+When we talk about UI design another fundamental constant usually is the set of font families, font size and line height used around. They bring consistency and order importance of all texts in your interface. In the the _Typography_ token we can setup common properties like `font-family`, `font-size` or `line-height`.
 
 #### Spaces
 

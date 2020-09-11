@@ -14,7 +14,7 @@ export default function Intro() {
         On this site I'm going to post technical articles related
         to software engineering and other interesting stuff.
         An attempt to present and express my thoughs about any kind of topic
-        about the world arround us.
+        about the world around us.
       </p>
     </div>
   );
