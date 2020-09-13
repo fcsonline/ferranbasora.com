@@ -16,7 +16,7 @@ export default function Header() {
           </a>
         </Link>
       </h1>
-      <div className="flex-grow text-right">
+      <div className="flex-grow text-right flex justify-end">
         <Nav />
       </div>
     </div>
