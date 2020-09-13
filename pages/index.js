@@ -14,7 +14,7 @@ export default function Home({ posts }) {
       <SEO title="Home" />
       <Intro className="my-14" />
       <Title>Recent posts</Title>
-      <Posts posts={posts.slice(0, 2)}/>
+      <Posts posts={posts.slice(0, 3)}/>
     </Layout>
   );
 }
