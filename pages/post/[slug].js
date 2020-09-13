@@ -44,7 +44,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
 
       <article>
         <header className="mb-8 mt-6">
-          <h1 className="mb-6 text-6xl font-black leading-none font-display">
+          <h1 className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-black leading-none font-display">
             {frontmatter.title}
           </h1>
           <span className="text-sm text-gray-700">
