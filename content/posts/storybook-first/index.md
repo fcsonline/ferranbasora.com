@@ -1,6 +1,6 @@
 ---
 title: Storybook first
-date: 2019-12-31
+date: 2019-12-31T20:00:00.000Z
 draft: true
 ---
 
@@ -81,7 +81,7 @@ Another topic that could need an extra article but I want to mention here is _Me
 
 I really recommend to you to categorize your components in multiple layers of complexity. The first category and the one with most basic components, the one that correspond to _Atoms_ in the _Atomic Design_.
 
-The list rules below is a recommmendation that only apply for the most basic layer of components. For other layers could be convenient not to follow them.
+The list rules below is a recommendation that only apply for the most basic layer of components. For other layers could be convenient not to follow them.
 
 #### Decoupled components
 

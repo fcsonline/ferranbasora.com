@@ -18,7 +18,7 @@ export default function PostList ({ posts }) {
 }
 
 export async function getStaticProps() {
-  const posts = getSortedPosts();
+  const posts = getSortedPosts(false);
 
   return {
     props: {

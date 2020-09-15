@@ -113,7 +113,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
 }
 
 export async function getStaticPaths() {
-  const paths = getPostsSlugs();
+  const paths = getPostsSlugs(true);
 
   return {
     paths,
@@ -122,7 +122,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const postData = getPostBySlug(slug);
+  const postData = getPostBySlug(slug, true);
 
   if (!postData.previousPost) {
     postData.previousPost = null;

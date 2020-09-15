@@ -22,7 +22,7 @@ function minuteRead(content) {
   return Math.round(content.length / 1500)
 }
 
-export function getSortedPosts() {
+export function getSortedPosts(drafts) {
   const postFolders = getPostsFolders();
 
   const posts = postFolders
@@ -35,7 +35,7 @@ export function getSortedPosts() {
       // Parse markdown, get frontmatter data, excerpt and content.
       const { data, excerpt, content } = matter(markdownWithMetadata);
 
-      if (data.draft) return null
+      if (!drafts && data.draft) return null
 
       const frontmatter = {
         ...data,
@@ -60,8 +60,8 @@ export function getSortedPosts() {
   return posts;
 }
 
-export function getPostsSlugs() {
-  const posts = getSortedPosts();
+export function getPostsSlugs(drafts) {
+  const posts = getSortedPosts(drafts);
 
   const paths = posts.map(({ slug }) => ({
     params: {
@@ -72,8 +72,8 @@ export function getPostsSlugs() {
   return paths;
 }
 
-export function getPostBySlug(slug) {
-  const posts = getSortedPosts();
+export function getPostBySlug(slug, drafts) {
+  const posts = getSortedPosts(drafts);
 
   const postIndex = posts.findIndex(({ slug: postSlug }) => postSlug === slug);
 

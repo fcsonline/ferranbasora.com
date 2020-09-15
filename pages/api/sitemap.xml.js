@@ -25,7 +25,7 @@ export default async (req, res) => {
     smStream.write({ url: '/', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.WEEKLY });
     smStream.write({ url: '/about', lastmod: process.env.siteUpdatedAt, changefreq: EnumChangefreq.MONTHLY });
 
-    const posts = getSortedPosts();
+    const posts = getSortedPosts(false);
 
     posts.map(post => {
       smStream.write({

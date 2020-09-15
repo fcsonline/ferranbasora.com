@@ -6,7 +6,7 @@ description: >
   in a blink of an eye.
 tags:
   - git
-date: 2016-10-17
+date: 2016-10-17T20:00:00.000Z
 canonical: https://medium.com/hackernoon/be-125-more-efficient-with-git-60556a1ce971
 repository: https://github.com/fcsonline/dotfiles/blob/master/git/gitconfig#L41
 ---

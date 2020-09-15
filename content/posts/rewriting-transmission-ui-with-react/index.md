@@ -7,7 +7,7 @@ description: >
 tags:
   - react
   - mobx
-date: 2017-02-03
+date: 2017-02-03T20:00:00.000Z
 canonical: https://medium.com/hackernoon/rewriting-transmission-ui-with-react-8f76c44c1c54
 repository: https://github.com/fcsonline/react-transmission
 ---
@@ -182,8 +182,8 @@ Our last goal is to present this project to the community to be evaluated. We
 decided to respect as much as possible the original interface for two main
 reasons:
 
-- We didn’t want to raise a debate in UI design. So we decided to follow the current design, we just wanted to propose a new code architecture.
-- We didn’t want to impact the end users in case that this code were considered for inclusion in the main Transmission repository.
+- We didn't want to raise a debate in UI design. So we decided to follow the current design, we just wanted to propose a new code architecture.
+- We didn't want to impact the end users in case that this code were considered for inclusion in the main Transmission repository.
 
 Lastly, even if the project dies out, for whatever reason, we’re happy anyway,
 because we learnt a lot of things and had a really fun time during its

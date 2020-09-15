@@ -5,7 +5,7 @@ description: >
   will let you build better and more maintainable interfaces.
 tags:
   - react
-date: 2016-12-02
+date: 2016-12-02T20:00:00.000Z
 canonical: https://medium.com/hackernoon/content-vs-container-e0a1ada681c1
 ---
 
