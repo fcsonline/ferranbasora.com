@@ -31,7 +31,7 @@ export default function Header() {
       <div className={clsx(`w-full flex flex-grow flex-col items-end mb-6 lg:flex lg:items-center lg:w-auto lg:block pt-6 lg:pt-0`, { hidden: !open })}>
         <ul className="list-reset lg:flex justify-end flex-1 items-center">
           {sections.map(({ label, href }) => (
-            <li className="mr-3 mb-5 lg:mb-0">
+            <li key={href} className="mr-3 mb-5 lg:mb-0">
               <Link key={label} href={href}>
                 <a className="font-black leading-none text-black no-underline text-4xl lg:text-xl font-display ml-4">
                   {label}
