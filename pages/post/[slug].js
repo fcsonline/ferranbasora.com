@@ -20,6 +20,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
     const assetPreviewSrc = () => {
       if (src.startsWith('http')) return src
       if (src.endsWith('.gif')) return null
+      if (src.endsWith('.svg')) return null
 
       return require(`../../content/posts/${slug}/${src}?lqip`)
     }

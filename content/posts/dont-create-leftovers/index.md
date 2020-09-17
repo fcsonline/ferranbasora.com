@@ -3,7 +3,6 @@ title: Don't create leftovers (DCL)
 description: >
   Improve the maintainability of your projects detecting this bad pattern in
   your code.
-draft: true
 date: 2020-09-12
 ---
 
@@ -45,6 +44,43 @@ don't track this kind of information between the dependencies in our code base.
 
 # Why we create leftovers?
 
+This bad design pattern can show up in many shapes. This is another example
+where *Don't create leftovers* impacts many projects today. How many of you
+have a translation system where translations live in one place and the place
+where they are used is in another one?
+
+`src/translations/en.json`
+```json
+{
+  "hello_world": "Hello World!"
+}
+```
+
+`src/components/hello_world.jsx`
+
+```js
+export default function HelloWorld () {
+  return (
+    <div>{i18n.t('hello_world')}</div>
+  )
+}
+```
+
+The problem with this translation approach is that if the `HelloWorld`
+component disappears in the future, the copy in `en.json` will be forgotten unless
+a developer remembers to clean it up. At some point in the future, your
+main translation file start to have hundreds of unused keys that make you lose
+money with each new language you want to support.
+
+![](dependencies.png)
+
+Some [translation systems](https://formatjs.io/docs/getting-started/message-extraction)
+are aware of this and follow a much better approach. They have an *extraction*
+step to retrieve all translations from the codebase. With this, the list of
+used copies (dependencies) is always up to date.
+
+# Other examples
+
 How many times have you seen a web platform tutorial where the `assets` folder
 and the place where they are used is far away?
 
@@ -82,41 +118,6 @@ Although this file organization seams inoffensive, it suffers from DCL too. If
 the `List` component disappears, maybe the `List.story.jsx` will fail as a
 side-effect but nobody will alert you that `ListItem` needs to
 be removed too.
-
-# Other examples
-
-This bad design pattern can show up in many shapes. This is another example
-where *Don't create leftovers* impacts many projects today. How many of you
-have a translation system where translations live in one place and the place
-where they are used is in another one?
-
-`src/translations/en.json`
-```json
-{
-  "hello_world": "Hello World!"
-}
-```
-
-`src/components/hello_world.jsx`
-
-```js
-export default function HelloWorld () {
-  return (
-    <div>{i18n.t('hello_world')}</div>
-  )
-}
-```
-
-The problem with this translation approach is that if the `HelloWorld`
-component disappears in the future, the copy in `en.json` will be forgotten unless
-a developer remembers to clean it up. At some point in the future, your
-main translation file start to have hundreds of unused keys that make you lose
-money with each new language you want to support.
-
-Some [translation systems](https://formatjs.io/docs/getting-started/message-extraction)
-are aware of this and follow a much better approach. They have an *extraction*
-step to retrieve all translations from the codebase. With this, the list of
-used copies (dependencies) is always up to date.
 
 # How to detect it?
 
