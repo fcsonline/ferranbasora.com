@@ -35,7 +35,7 @@ bucket.
 Those items should have been removed when the last reference to them disappeared
 but a developer forgot to remove them. Those leftovers can be a non used
 image, a non used copy, a non used test in your test suite, etc. This bad
-pattern can take make shapes.
+pattern can take many shapes.
 
 You can find many similarities and parallelisms with the responsibilities of a
 memory garbage collector. It keep tracks the dependencies between parts, with
@@ -65,8 +65,6 @@ This structure can be familiar to you, but it suffers from DCL. If for some
 reason the `post1` is no longer needed and it disappears, it is really
 provable that the `helper.spec.js` file will be removed after a failing test but
 those `assets` related to `post1` will be forgotten forever.
-
-> TODO: Webpack globing.
 
 Check this other example:
 
@@ -156,17 +154,16 @@ This new approach has much better encapsulation and a clear set of
 dependencies. One direct benefit of this is that it let you move this component
 to others around without break it.
 
-> TODO:
-> In some cases, like the translations example, you will need something in your
-> toolchain to resolve the dependencies of your components or builder
-> capabilities in builder. In other cases,
->
-> Webpack globing.
+In some cases, like the translations example, you will need some extra step in
+your toolchain to resolve those dependencies of your views. In the case of the
+assets one, you will need your builder (Ex. Webpack) to have support to resolve
+them.
 
 # Conclusion
 
-We just reviewed few examples of the *don't create leftovers* principle, you
-will create and organize your components in a better way that will let you
+We just reviewed few examples of the *don't create leftovers* principle.
+Understanding the consequences in terms of maintainability, you will be able to
+create and organize your components in a better way that will let you
 maintain your code base in a healthier way in the long term.
 
 You don't need to take this principle as written in stone. There are always
