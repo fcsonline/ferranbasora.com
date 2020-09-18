@@ -10,6 +10,7 @@ tags:
 date: 2017-02-03T20:00:00.000Z
 canonical: https://medium.com/hackernoon/rewriting-transmission-ui-with-react-8f76c44c1c54
 repository: https://github.com/fcsonline/react-transmission
+thumbnail: inject-store.png
 ---
 
 I remember it was about two months ago when I was talking with Eduardo

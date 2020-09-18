@@ -20,6 +20,7 @@ export default function Project({ project, slug, frontmatter, duration, nextProj
     const assetPreviewSrc = () => {
       if (src.startsWith('http')) return src
       if (src.endsWith('.gif')) return null
+      if (src.endsWith('.svg')) return null
 
       return require(`../../content/projects/${slug}/${src}?lqip`)
     }

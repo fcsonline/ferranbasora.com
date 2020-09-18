@@ -4,6 +4,7 @@ description: >
   Improve the maintainability of your projects detecting this bad pattern in
   your code.
 date: 2020-09-12
+thumbnail: dependencies.png
 ---
 
 Everybody is familiar with

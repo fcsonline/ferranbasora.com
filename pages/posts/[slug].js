@@ -35,6 +35,8 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
     )
   }
 
+  const image = frontmatter.thumbnail ? require(`../../content/posts/${slug}/${frontmatter.thumbnail}`) : null
+
   return (
     <Layout>
       <SEO
@@ -42,6 +44,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
         description={frontmatter.description || post.excerpt}
         url={`/posts/${slug}`}
         canonical={frontmatter.canonical}
+        image={image}
       />
 
       <article>

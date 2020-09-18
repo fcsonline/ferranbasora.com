@@ -7,6 +7,7 @@ tags:
   - react
 date: 2016-12-02T20:00:00.000Z
 canonical: https://medium.com/hackernoon/content-vs-container-e0a1ada681c1
+thumbnail: event-propagation.png
 ---
 
 ![Picture from Amazon.com](game-wood.png)
