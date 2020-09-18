@@ -22,7 +22,6 @@ export default function Header() {
       <div className="flex justify-end lg:hidden">
         <button onClick={onClick} className="flex items-center px-1 py-1 outline-none text-gray-700 hover:border-white">
           <svg className="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <title>Menu</title>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
@@ -42,7 +41,6 @@ export default function Header() {
         </ul>
         {open && (<button onClick={onClick} className="flex items-center px-1 py-1 outline-none text-gray-700 hover:border-white">
           <svg className="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <title>Collapse menu</title>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
           </svg>
         </button>)}
