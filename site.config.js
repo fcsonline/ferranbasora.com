@@ -6,7 +6,7 @@ export default {
       summary: "We need a tool™ #rust, #opensource, #security, #webperf",
     },
     description: "The blog, projects, and other stuff of Ferran Basora",
-    siteUrl: "https://www.ferranbasora.com/",
+    siteUrl: "https://ferranbasora.com",
     language: "en-US",
     social: {
       twitter: "openfcsonline",

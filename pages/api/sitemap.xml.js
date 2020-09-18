@@ -29,7 +29,7 @@ export default async (req, res) => {
 
     posts.map(post => {
       smStream.write({
-        url: `/post/${post.slug}`,
+        url: `/posts/${post.slug}`,
         lastmod: post.date,
         changefreq: EnumChangefreq.WEEKLY,
       });

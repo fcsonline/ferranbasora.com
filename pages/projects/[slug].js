@@ -34,12 +34,16 @@ export default function Project({ project, slug, frontmatter, duration, nextProj
     )
   }
 
+  const image = require(`../../content/projects/${slug}/thumbnail.png`)
+
   return (
     <Layout>
       <SEO
         title={frontmatter.title}
         description={frontmatter.description || project.excerpt}
+        url={`/project/${slug}`}
         canonical={frontmatter.canonical}
+        image={image}
       />
 
       <article>

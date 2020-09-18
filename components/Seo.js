@@ -1,28 +1,34 @@
 import Head from "next/head";
 import { getSiteMetaData } from "utils/helpers";
 
-export default function SEO({ title, description = "", canonical }) {
+export default function SEO({ title, description, url, image, canonical }) {
   const siteMetadata = getSiteMetaData();
 
+  const metaTitle = title || siteMetadata.title;
   const metaDescription = description || siteMetadata.description;
+  const metaUrl = url && url[0] === '/' ? `${siteMetadata.siteUrl}${url}`: url;
+  const metaImage = image || require("../content/assets/profile.jpg")
 
   return (
     <Head>
-      <title>
-        {title} | {siteMetadata.title}
-      </title>
+      <title>{metaTitle}</title>
+      <meta name="title" content={metaTitle} />
       <meta name="description" content={metaDescription} />
 
-      <meta name="image" content={require("../content/assets/profile.jpg")} />
-
       <meta property="og:type" content="website" />
-      <meta name="og:title" property="og:title" content={title} />
-      <meta name="og:description" property="og:description" content={metaDescription} />
+      <meta property="og:url" content={metaUrl} />
+      <meta property="og:title" content={metaTitle} />
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:image" content={metaImage} />
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:creator" content={siteMetadata.social.twitter} />
+      <meta property="twitter:card" content={metaImage} />
+      <meta property="twitter:url" content={metaUrl} />
+      <meta property="twitter:title" content={metaTitle} />
+      <meta property="twitter:description" content={metaDescription} />
+      <meta property="twitter:creator" content={siteMetadata.social.twitter} />
+      <meta property="twitter:image" content={metaImage} />
+
+      <meta name="image" content={metaImage} />
 
       <link rel="icon" type="image/png" href="/favicon.png" />
       <link rel="apple-touch-icon" href="/favicon.png" />

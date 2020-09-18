@@ -40,6 +40,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
       <SEO
         title={frontmatter.title}
         description={frontmatter.description || post.excerpt}
+        url={`/posts/${slug}`}
         canonical={frontmatter.canonical}
       />
 
@@ -77,7 +78,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
       </article>
       <nav className="flex justify-between mb-10 mt-10">
         {previousPost ? (
-          <Link href={"/post/[slug]"} as={`/post/${previousPost.slug}`}>
+          <Link href={"/posts/[slug]"} as={`/posts/${previousPost.slug}`}>
             <a className="text-lg font-bold">
               <svg className="w-6 inline mr-1 mb-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Previous post</title>
@@ -91,7 +92,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
           <div />
         )}
         {nextPost ? (
-          <Link href={"/post/[slug]"} as={`/post/${nextPost.slug}`}>
+          <Link href={"/posts/[slug]"} as={`/posts/${nextPost.slug}`}>
             <a className="text-lg font-bold">
               {nextPost.frontmatter.title}
 
