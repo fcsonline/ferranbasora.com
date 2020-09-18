@@ -35,6 +35,17 @@ export default function Project({ project, slug, frontmatter, duration, nextProj
     )
   }
 
+  const MarkdownLink = ({href, children}) => {
+    const rel = href.startsWith('http') ? 'noopener noreferrer' : null
+    const target = href.startsWith('http') ? '_blank' : null
+
+    return (
+      <a href={href} rel={rel} target={target}>
+        {children}
+      </a>
+    )
+  }
+
   const image = require(`../../content/projects/${slug}/thumbnail.png`)
 
   return (
@@ -63,9 +74,8 @@ export default function Project({ project, slug, frontmatter, duration, nextProj
         <ReactMarkdown
           className="mb-4 prose-sm prose sm:prose lg:prose-lg"
           escapeHtml={false}
-          linkTarget={(url) => (url.startsWith('http') ? '_blank' : null)}
           source={project.content}
-          renderers={{ code: CodeBlock, image: MarkdownImage }}
+          renderers={{ code: CodeBlock, image: MarkdownImage, link: MarkdownLink }}
         />
 
         <div className="mt-8">

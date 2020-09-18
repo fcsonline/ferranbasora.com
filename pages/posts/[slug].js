@@ -35,6 +35,17 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
     )
   }
 
+  const MarkdownLink = ({href, children}) => {
+    const rel = href.startsWith('http') ? 'noopener noreferrer' : null
+    const target = href.startsWith('http') ? '_blank' : null
+
+    return (
+      <a href={href} rel={rel} target={target}>
+        {children}
+      </a>
+    )
+  }
+
   const image = frontmatter.thumbnail ? require(`../../content/posts/${slug}/${frontmatter.thumbnail}`) : null
 
   return (
@@ -73,8 +84,7 @@ export default function Post({ post, slug, frontmatter, duration, nextPost, prev
           className="mb-4 prose-sm prose sm:prose lg:prose-lg"
           escapeHtml={false}
           source={post.content}
-          linkTarget={(url) => (url.startsWith('http') ? '_blank' : null)}
-          renderers={{ code: CodeBlock, image: MarkdownImage }}
+          renderers={{ code: CodeBlock, image: MarkdownImage, link: MarkdownLink }}
         />
       </article>
       <nav className="flex justify-between mb-10 mt-10">
