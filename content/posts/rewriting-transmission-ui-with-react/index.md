@@ -100,7 +100,7 @@ observable property. That change produces an update in observer components. In
 this case `PreferenceDialog` reacts to this change and re-renders itself,
 resulting in dialog shown in the UI.
 
-![](inject-store.png)
+![Inject stores to views](inject-store.png)
 
 ## Styling
 
@@ -126,11 +126,11 @@ stylesheet file.
 
 React `viewConnectionDialog/index.js`:
 
-![](connection-dialog-js.png)
+![Connection dialog with styles](connection-dialog-js.png)
 
 Style `fileConnectionDialog/styles/index.css`:
 
-![](connection-dialog-css.png)
+![CSS code for Connection Dialog](connection-dialog-css.png)
 
 ## Tests
 
@@ -150,13 +150,13 @@ future changes that we apply to the application.
 As we can see in this example we are rendering the Progress bar component with
 mocked torrent data.
 
-![](progressbar-test.png)
+![Jest progressbar tests](progressbar-test.png)
 
 Then with the snapshot technique we can ensure that the rendered result is what
 we expect comparing with previous snapshot. Testing components in this way is a
 as simple as record JSX code.
 
-![](progressbar-snapshot.png)
+![Jest progressbar snapshots](progressbar-snapshot.png)
 
 ## Extra features
 
@@ -168,7 +168,7 @@ Furthermore, one extra feature that the new interface includes is drag and drop
 file support for torrent files. This boosts the common use case of quickly
 adding a torrent file as you can see in this example:
 
-![](react-transmission-demo.gif)
+![A small React Transmission demo](react-transmission-demo.gif)
 
 ## Conclusion
 

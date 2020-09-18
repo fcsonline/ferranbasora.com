@@ -73,7 +73,7 @@ a developer remembers to clean it up. At some point in the future, your
 main translation file start to have hundreds of unused keys that make you lose
 money with each new language you want to support.
 
-![](dependencies.png)
+![Example of translation dependencies](dependencies.png)
 
 Some [translation systems](https://formatjs.io/docs/getting-started/message-extraction)
 are aware of this and follow a much better approach. They have an *extraction*

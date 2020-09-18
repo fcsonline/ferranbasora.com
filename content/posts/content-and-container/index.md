@@ -197,7 +197,7 @@ _New cart markup, with better responsibilities_
 
 The differences are subtle, but you will start taking advantage of them.
 
-![](new-cart-items.png)
+![A better approach for containers](new-cart-items.png)
 
 ### Components styles
 
@@ -239,7 +239,7 @@ shines.
 A brief summary for event bubbling is that an event that happens in a DOM node
 goes through all the parent nodes until you call `stopPropagation` method.
 
-![](event-propagation.png)
+![An event propagation example](event-propagation.png)
 
 Taking this as premise, it's really easy to share all the responsibilities out
 in our application between all the components in it.
