@@ -7,7 +7,7 @@ date: 2020-09-12
 thumbnail: dependencies.png
 ---
 
-Everybody is familiar with
+Everybody is familiar with the
 [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle in
 software engineering coined by Andy Hunt and Dave Thomas. It states *do not
 repeat yourself* in code to achieve less ambiguous code, avoid redundancy, and
@@ -20,10 +20,10 @@ itself but in the organization of the files that compose it.
 
 # What is a leftover?
 
-Over months and years, projects create and destroy many pieces of software
-as they keep evolving to meet users' expectations. During this period of
-time is easy to generate files, components, and other kinds of stuff that are not
-used any more. Those non desired pieces make harder to maintain, impact in your
+Over months and years, projects create and destroy many pieces of software as
+they keep evolving to meet users' expectations. During this period of time, it is
+easy to generate files, components, and other kinds of stuff that are not used
+any more. Those non desired pieces make it harder to maintain, impact on your
 internal metrics, slow down your Continuous Integration check and other kinds
 of side effects.
 
@@ -32,18 +32,18 @@ long term they can reach a point where nobody is brave enough to do a right
 cleanup to have a healthy codebase. This goes directly to the technical debt
 bucket.
 
-Those items should have been removed when the last reference to them disappeared
-but a developer forgot to remove them. Those leftovers can be a non used
-image, a non used copy, a non used test in your test suite, etc. This bad
+Those items should have been removed when the last reference to them
+disappeared but a developer forgot to remove them. Those leftovers can be a
+non-used image, a non-used copy, a non-used test on your test suite, etc. This bad
 pattern can take many shapes.
 
 You can find many similarities and parallelisms with the responsibilities of a
-memory garbage collector. It keep tracks the dependencies between parts, with
-a [reference counting](https://en.wikipedia.org/wiki/Reference_counting) to be
-able to destroy a non used references. The problem here is that we
-don't track this kind of information between the dependencies in our code base.
+memory garbage collector. It keeps tracks the dependencies between parts, with a
+[reference counting](https://en.wikipedia.org/wiki/Reference_counting) to be
+able to destroy a non used references. The problem here is that we don't track
+this kind of information between the dependencies in our code base.
 
-# Why we create leftovers?
+# Why do we create leftovers?
 
 This bad design pattern can show up in many shapes. This is another example
 where *Don't create leftovers* impacts many projects today. How many of you
@@ -70,7 +70,7 @@ export default function HelloWorld () {
 The problem with this translation approach is that if the `HelloWorld`
 component disappears in the future, the copy in `en.json` will be forgotten unless
 a developer remembers to clean it up. At some point in the future, your
-main translation file start to have hundreds of unused keys that make you lose
+main translation file starts to have hundreds of unused keys that make you lose
 money with each new language you want to support.
 
 ![Example of translation dependencies](dependencies.png)
@@ -115,7 +115,7 @@ stories/
   List.story.jsx
 ```
 
-Although this file organization seams inoffensive, it suffers from DCL too. If
+Although this file organization seems inoffensive, it suffers from DCL too. If
 the `List` component disappears, maybe the `List.story.jsx` will fail as a
 side-effect but nobody will alert you that `ListItem` needs to
 be removed too.
@@ -153,8 +153,8 @@ Following the previous example, this would be a much better organization:
 ```
 
 This new approach has much better encapsulation and a clear set of
-dependencies. One direct benefit of this is that it let you move this component
-to others around without break it.
+dependencies. One direct benefit of this is that it lets you move this component
+to others around without breaking it.
 
 In some cases, like the translations example, you will need some extra step in
 your toolchain to resolve those dependencies of your views. In the case of the
@@ -163,7 +163,7 @@ them.
 
 # Conclusion
 
-We just reviewed few examples of the *don't create leftovers* principle.
+We just reviewed a few examples of the *don't create leftovers* principle.
 Understanding the consequences in terms of maintainability, you will be able to
 create and organize your components in a better way that will let you
 maintain your code base in a healthier way in the long term.
