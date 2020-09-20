@@ -3,7 +3,7 @@ title: Don't create leftovers (DCL)
 description: >
   Improve the maintainability of your projects detecting this bad pattern in
   your code.
-date: 2020-09-12
+date: 2020-09-20
 thumbnail: dependencies.png
 ---
 
@@ -13,39 +13,38 @@ software engineering coined by Andy Hunt and Dave Thomas. It states *do not
 repeat yourself* in code to achieve less ambiguous code, avoid redundancy, and
 many other benefits in the long term.
 
-In this post, I want to explain another pattern that I see over and over in any
+In this post, I want to explain another pattern that I see over and over in all
 kind of projects and it only brings problems in the long term and impacts the
 maintainability of your software project. It doesn't affect the source code
-itself but in the organization of the files that compose it.
+itself but the organization of the files that compose it.
 
 # What is a leftover?
 
-Over months and years, projects create and destroy many pieces of software as
-they keep evolving to meet users' expectations. During this period of time, it is
-easy to generate files, components, and other kinds of stuff that are not used
-any more. Those non desired pieces make it harder to maintain, impact on your
+In the lifespan of a software project, code gets created and destroyed to meet
+users' expectations. During this period, it is easy to generate files,
+components, and other kinds of stuff that are not used any more. Those
+undesired pieces of software, make it harder to maintain, impact on your
 internal metrics, slow down your Continuous Integration check and other kinds
 of side effects.
 
-Those leftovers from the past don't bring any value to the project and in the
-long term they can reach a point where nobody is brave enough to do a right
-cleanup to have a healthy codebase. This goes directly to the technical debt
-bucket.
+Those leftovers from the past, don't bring any value to the project and it can
+get to the point where nobody is brave enough to do a right cleanup to have a
+healthy codebase. This goes directly to the technical debt bucket.
 
 Those items should have been removed when the last reference to them
 disappeared but a developer forgot to remove them. Those leftovers can be a
-non-used image, a non-used copy, a non-used test on your test suite, etc. This bad
+unused image, a unused copy, a unused test on your test suite, etc. This bad
 pattern can take many shapes.
 
 You can find many similarities and parallelisms with the responsibilities of a
 memory garbage collector. It keeps tracks the dependencies between parts, with a
 [reference counting](https://en.wikipedia.org/wiki/Reference_counting) to be
-able to destroy a non used references. The problem here is that we don't track
+able to destroy all unused references. The problem here is that we don't track
 this kind of information between the dependencies in our code base.
 
 # Why do we create leftovers?
 
-This bad design pattern can show up in many shapes. This is another example
+This bad design pattern can have many shapes. This is another example
 where *Don't create leftovers* impacts many projects today. How many of you
 have a translation system where translations live in one place and the place
 where they are used is in another one?
@@ -136,7 +135,7 @@ question at this point helps you to know all the dependencies this code has.
 # Better approach
 
 To fix this organization problem, the best approach is to encapsulate better
-all the dependencies. In the case of file, structures try to avoid having
+all the dependencies. In the case of file structures try to avoid having
 dependencies to parent components if a dependency is only used once and move
 them as child components. All those dependencies can start to use relative
 paths.
@@ -169,12 +168,12 @@ create and organize your components in a better way that will let you
 maintain your code base in a healthier way in the long term.
 
 You don't need to take this principle as written in stone. There are always
-exceptions or corner cases, as in DRY principle, we don't have to fall on *the
+exceptions or edge cases, as in DRY principle, we don't have to fall on *the
 wrong abstraction* as Sandi Metz mentioned. You have to use it and keep it
 in mind when you structure your components, views, assets or
 whatever piece in your project.
 
-I hope this post helps you to spot this pattern sooner than later to keep the
-maintainability of your project under control.
+I hope this post helps you to spot this pattern sooner rather than later to
+keep the maintainability of your project under control.
 
 Happy hacking!
