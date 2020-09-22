@@ -99,7 +99,7 @@ Take this easy file structure:
 
 This structure can be familiar to you, but it suffers from DCL. If for some
 reason the `post1` is no longer needed and it disappears, it is really
-provable that the `helper.spec.js` file will be removed after a failing test but
+probable that the `helper.spec.js` file will be removed after a failing test but
 those `assets` related to `post1` will be forgotten forever.
 
 Check this other example:
