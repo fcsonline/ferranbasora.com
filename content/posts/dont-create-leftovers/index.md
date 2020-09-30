@@ -33,8 +33,7 @@ healthy codebase. This goes directly to the technical debt bucket.
 
 Those items should have been removed when the last reference to them
 disappeared but a developer forgot to remove them. Those leftovers can be a
-unused image, a unused copy, a unused test on your test suite, etc. This bad
-pattern can take many shapes.
+unused image, a unused copy, a unused test on your test suite, etc.
 
 You can find many similarities and parallelisms with the responsibilities of a
 memory garbage collector. It keeps tracks the dependencies between parts, with a
