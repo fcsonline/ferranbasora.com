@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <nav>
       <div className="flex justify-end lg:hidden">
-        <button onClick={onClick} className="flex items-center px-1 py-1 outline-none text-gray-700 hover:border-white">
+        <button onClick={onClick} className="flex items-center px-1 py-1 outline-none text-gray-700 hover:border-white" aria-label="Menu">
           <svg className="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
