@@ -7,7 +7,7 @@ export default function CodeBlock ({ language, value }) {
 
   return (
     <div ref={ref}>
-      <SyntaxHighlighter style={materialDark} language={language}>{value}</SyntaxHighlighter>
+      { inView && (<SyntaxHighlighter style={materialDark} language={language}>{value}</SyntaxHighlighter>) }
     </div>
   );
 };
