@@ -18,7 +18,7 @@ kind of projects and it brings problems and impacts the
 maintainability of your software project. It doesn't affect the source code
 itself but the organization of the files that compose it.
 
-# What is a leftover?
+## What is a leftover?
 
 In the lifespan of a software project, code gets created and destroyed to meet
 users' expectations. During this period, it is easy to generate files,
@@ -41,7 +41,7 @@ memory garbage collector. It keeps tracks the dependencies between parts, with a
 able to destroy all unused references. The problem here is that we don't track
 this kind of information between the dependencies in our code base.
 
-# Why do we create leftovers?
+## Why do we create leftovers?
 
 This bad design pattern can have many shapes. This is another example
 where *Don't create leftovers* impacts many projects today. How many of you
@@ -78,7 +78,7 @@ are aware of this and follow a much better approach. They have an *extraction*
 step to retrieve all translations from the codebase. With this, the list of
 used copies (dependencies) is always up to date.
 
-# Other examples
+## Other examples
 
 How many times have you seen a web platform tutorial where the `assets` folder
 and the place where they are used is far away?
@@ -118,7 +118,7 @@ the `List` component disappears, maybe the `List.story.jsx` will fail as a
 side-effect but nobody will alert you that `ListItem` needs to
 be removed too.
 
-# How to detect it?
+## How to detect it?
 
 This principle shows up like references to parent components or external
 resources, but sometimes it is harder to detect it.
@@ -131,7 +131,7 @@ With this question, you imagine yourself in the future removing this shiny new
 code and seeing all the unused pieces in your source code. Answering this
 question at this point helps you to know all the dependencies this code has.
 
-# Better approach
+## Better approach
 
 To fix this organization problem, the best approach is to encapsulate better
 all the dependencies. In the case of file structures try to avoid having
@@ -159,7 +159,7 @@ your toolchain to resolve those dependencies of your views. In the case of the
 assets one, you will need your builder (Ex. Webpack) to have support to resolve
 them.
 
-# Conclusion
+## Conclusion
 
 We just reviewed a few examples of the *don't create leftovers* principle.
 Understanding the consequences in terms of maintainability, you will be able to
