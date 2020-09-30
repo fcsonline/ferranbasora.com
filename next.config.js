@@ -1,4 +1,5 @@
 const withPlugins = require("next-compose-plugins");
+const withOffline = require('next-offline')
 const optimizedImages = require("next-optimized-images");
 
-module.exports = withPlugins([optimizedImages]);
+module.exports = withPlugins([withOffline, optimizedImages]);
