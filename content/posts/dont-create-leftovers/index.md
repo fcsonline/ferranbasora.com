@@ -14,7 +14,7 @@ repeat yourself* in code to achieve less ambiguous code, avoid redundancy, and
 many other benefits in the long term.
 
 In this post, I want to explain another pattern that I see over and over in all
-kind of projects and it only brings problems in the long term and impacts the
+kind of projects and it brings problems and impacts the
 maintainability of your software project. It doesn't affect the source code
 itself but the organization of the files that compose it.
 
