@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "autoprefixer": "^9",
     "clsx": "^1.1.1",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",
@@ -18,6 +19,7 @@
     "next-compose-plugins": "^2.2.1",
     "next-offline": "^5.0.3",
     "next-optimized-images": "^2.6.1",
+    "postcss": "^7",
     "postcss-preset-env": "^6.7.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -26,12 +28,12 @@
     "react-syntax-highlighter": "^13.5.3",
     "sitemap": "^6.3.3",
     "typeface-merriweather": "^0.0.72",
-    "typeface-open-sans": "^0.0.75"
+    "typeface-open-sans": "^0.0.75",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.2.0",
-    "gray-matter": "^4.0.2",
-    "tailwindcss": "^2.0.1"
+    "gray-matter": "^4.0.2"
   },
   "license": "MIT",
   "repository": {

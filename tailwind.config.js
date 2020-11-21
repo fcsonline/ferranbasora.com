@@ -26,9 +26,6 @@ module.exports = {
   purge: ["./**/{pages,components,tailwind}/**/*.{js,jsx,ts,tsx,css}"],
   theme: {
     extend: {
-      // colors: {
-      //   "neon-orange": "#f92300",
-      // },
       fontSize: {
         "7xl": "4.5rem",
       },
