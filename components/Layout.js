@@ -1,16 +1,18 @@
-import React from 'react';
-import Header from "components/Header";
-import Footer from "components/Footer";
-import MenuContext from 'components/MenuContext';
+import React from 'react'
+import { PropTypes } from 'prop-types'
 
-export default function Layout({ children }) {
+import Header from 'components/Header'
+import Footer from 'components/Footer'
+import MenuContext from 'components/MenuContext'
+
+const Layout = ({ children }) => {
   const [open, toggleOpen] = React.useState(false)
 
   return (
     <MenuContext.Provider
       value={{
         open,
-        toggleOpen,
+        toggleOpen
       }}
     >
       <div className="max-w-screen-md px-4 py-12 mx-auto antialiased font-body">
@@ -19,5 +21,11 @@ export default function Layout({ children }) {
         <Footer />
       </div>
     </MenuContext.Provider>
-  );
+  )
 }
+
+Layout.propTypes = {
+  children: PropTypes.node
+}
+
+export default Layout

@@ -1,15 +1,16 @@
-import Link from "next/link";
-import ReactMarkdown from "react-markdown/with-html";
+import { PropTypes } from 'prop-types'
+import Link from 'next/link'
+import ReactMarkdown from 'react-markdown/with-html'
 
-import Layout from "components/Layout";
-import Image from "components/Image";
-import SEO from "components/Seo";
-import Bio from "components/Bio";
-import CodeBlock from "components/CodeBlock";
+import Layout from 'components/Layout'
+import Image from 'components/Image'
+import SEO from 'components/Seo'
+import Bio from 'components/Bio'
+import CodeBlock from 'components/CodeBlock'
 
-import { getProjectBySlug, getProjectsSlugs } from "utils/projects";
+import { getProjectBySlug, getProjectsSlugs } from 'utils/projects'
 
-export default function Project({ project, slug, frontmatter, duration, nextProject, previousProject }) {
+const Project = ({ project, slug, frontmatter, duration, nextProject, previousProject }) => {
   const MarkdownImage = ({ src, alt }) => {
     const assetSrc = () => {
       if (src.startsWith('http')) return src
@@ -35,7 +36,12 @@ export default function Project({ project, slug, frontmatter, duration, nextProj
     )
   }
 
-  const MarkdownLink = ({href, children}) => {
+  MarkdownImage.propTypes = {
+    src: PropTypes.string,
+    alt: PropTypes.string
+  }
+
+  const MarkdownLink = ({ href, children }) => {
     const rel = href.startsWith('http') ? 'noopener noreferrer' : null
     const target = href.startsWith('http') ? '_blank' : null
 
@@ -44,6 +50,11 @@ export default function Project({ project, slug, frontmatter, duration, nextProj
         {children}
       </a>
     )
+  }
+
+  MarkdownLink.propTypes = {
+    href: PropTypes.string,
+    children: PropTypes.node
   }
 
   const image = require(`../../content/projects/${slug}/thumbnail.png`)
@@ -93,60 +104,77 @@ export default function Project({ project, slug, frontmatter, duration, nextProj
 
       </article>
       <nav className="flex justify-between mb-10 mt-10">
-        {previousProject ? (
-          <Link href={"/projects/[slug]"} as={`/projects/${previousProject.slug}`}>
-            <a className="text-lg font-bold">
-              <svg className="w-6 inline mr-1 mb-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
-              </svg>
+        {previousProject
+          ? (
+            <Link href={'/projects/[slug]'} as={`/projects/${previousProject.slug}`}>
+              <a className="text-lg font-bold">
+                <svg className="w-6 inline mr-1 mb-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+                </svg>
 
-              {previousProject.frontmatter.title}
-            </a>
-          </Link>
-        ) : (
-          <div />
-        )}
-        {nextProject ? (
-          <Link href={"/projects/[slug]"} as={`/projects/${nextProject.slug}`}>
-            <a className="text-lg font-bold">
-              {nextProject.frontmatter.title}
+                {previousProject.frontmatter.title}
+              </a>
+            </Link>
+            )
+          : (
+            <div />
+            )
+        }
+        {nextProject
+          ? (
+              <Link href={'/projects/[slug]'} as={`/projects/${nextProject.slug}`}>
+                <a className="text-lg font-bold">
+                  {nextProject.frontmatter.title}
 
-              <svg className="w-6 inline ml-1 mb-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </a>
-          </Link>
-        ) : (
-          <div />
-        )}
+                  <svg className="w-6 inline ml-1 mb-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </a>
+              </Link>
+            )
+          : (
+              <div />
+            )
+        }
       </nav>
       <hr className="mt-10" />
       <footer>
         <Bio className="mt-8 mb-16" />
       </footer>
     </Layout>
-  );
+  )
 }
 
-export async function getStaticPaths() {
-  const paths = getProjectsSlugs();
+Project.propTypes = {
+  project: PropTypes.object,
+  slug: PropTypes.string,
+  frontmatter: PropTypes.object,
+  duration: PropTypes.number,
+  nextProject: PropTypes.object,
+  previousProject: PropTypes.object
+}
+
+export default Project
+
+export async function getStaticPaths () {
+  const paths = getProjectsSlugs()
 
   return {
     paths,
-    fallback: false,
-  };
+    fallback: false
+  }
 }
 
-export async function getStaticProps({ params: { slug } }) {
-  const projectData = getProjectBySlug(slug);
+export async function getStaticProps ({ params: { slug } }) {
+  const projectData = getProjectBySlug(slug)
 
   if (!projectData.previousProject) {
-    projectData.previousProject = null;
+    projectData.previousProject = null
   }
 
   if (!projectData.nextProject) {
-    projectData.nextProject = null;
+    projectData.nextProject = null
   }
 
-  return { props: projectData };
+  return { props: projectData }
 }

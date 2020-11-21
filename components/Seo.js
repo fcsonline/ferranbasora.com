@@ -1,13 +1,14 @@
-import Head from "next/head";
-import { getSiteMetaData } from "utils/helpers";
+import { PropTypes } from 'prop-types'
+import Head from 'next/head'
+import { getSiteMetaData } from 'utils/helpers'
 
-export default function SEO({ title, description, url, image, canonical }) {
-  const siteMetadata = getSiteMetaData();
+const Seo = ({ title, description, url, image, canonical }) => {
+  const siteMetadata = getSiteMetaData()
 
-  const metaTitle = title || siteMetadata.title;
-  const metaDescription = description || siteMetadata.description;
-  const metaUrl = url && url[0] === '/' ? `${siteMetadata.siteUrl}${url}`: url;
-  const metaImage = image || require("../content/assets/profile.jpg")
+  const metaTitle = title || siteMetadata.title
+  const metaDescription = description || siteMetadata.description
+  const metaUrl = url && url[0] === '/' ? `${siteMetadata.siteUrl}${url}` : url
+  const metaImage = image || require('../content/assets/profile.jpg')
 
   return (
     <Head>
@@ -38,5 +39,15 @@ export default function SEO({ title, description, url, image, canonical }) {
       {canonical && (<link rel="canonical" href={canonical} />)}
 
     </Head>
-  );
+  )
 }
+
+Seo.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  url: PropTypes.string,
+  image: PropTypes.string,
+  canonical: PropTypes.string
+}
+
+export default Seo

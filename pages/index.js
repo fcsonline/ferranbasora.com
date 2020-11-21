@@ -1,14 +1,14 @@
-import Link from "next/link";
+import { PropTypes } from 'prop-types'
 
-import Layout from "components/Layout";
-import SEO from "components/Seo";
-import Intro from "components/Intro";
-import Title from "components/Title";
-import Posts from "components/Posts";
+import Layout from 'components/Layout'
+import SEO from 'components/Seo'
+import Intro from 'components/Intro'
+import Title from 'components/Title'
+import Posts from 'components/Posts'
 
-import { getSortedPosts } from "utils/posts";
+import { getSortedPosts } from 'utils/posts'
 
-export default function Home({ posts }) {
+const Home = ({ posts }) => {
   return (
     <Layout>
       <SEO title="Home" />
@@ -16,15 +16,21 @@ export default function Home({ posts }) {
       <Title>Recent posts</Title>
       <Posts posts={posts.slice(0, 3)}/>
     </Layout>
-  );
+  )
 }
 
-export async function getStaticProps() {
-  const posts = getSortedPosts(false);
+export async function getStaticProps () {
+  const posts = getSortedPosts(false)
 
   return {
     props: {
       posts
-    },
-  };
+    }
+  }
 }
+
+Home.propTypes = {
+  posts: PropTypes.array
+}
+
+export default Home

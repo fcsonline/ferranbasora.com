@@ -1,13 +1,10 @@
-import Link from "next/link";
+import Layout from 'components/Layout'
+import SEO from 'components/Seo'
+import Image from 'components/Image'
+import { getSiteMetaData } from 'utils/helpers'
 
-import Layout from "components/Layout";
-import SEO from "components/Seo";
-import Title from "components/Title";
-import Image from "components/Image";
-import { getSiteMetaData } from "utils/helpers";
-
-export default function About() {
-  const { author } = getSiteMetaData();
+export default function About () {
+  const { author } = getSiteMetaData()
 
   return (
     <Layout>
@@ -15,13 +12,13 @@ export default function About() {
 
       <Image
         className="mr-3 rounded-full w-20 h-20"
-        src={require("../content/assets/profile.jpg")}
-        previewSrc={require("../content/assets/profile.jpg?lqip")}
+        src={require('../content/assets/profile.jpg')}
+        previewSrc={require('../content/assets/profile.jpg?lqip')}
         alt={author.name}
       />
 
       <p className="mb-6 mt-12 text-lg text-gray-800">
-        Hi, I'm Ferran.
+        Hi, I&apos;m Ferran.
       </p>
 
       <p className="mb-6 text-lg text-gray-800">
@@ -36,11 +33,11 @@ export default function About() {
       </p>
 
       <p className="mb-6 text-lg text-gray-800">
-        Right now, I'm working on
+        Right now, I&apos;m working on
         <a className='mx-1' href="https://github.com/fcsonline/drill">Drill</a>
         project, a HTTP load testing application written in
         <a className='ml-1' href="https://www.rust-lang.org/">Rust</a>. On the other hand,
-        I'm working on
+        I&apos;m working on
         <a className='mx-1' href="https://github.com/fcsonline/tmux-thumbs">tmux-thumbs</a>
         project, a hint picker for
         <a className='ml-1' href="https://github.com/tmux/tmux">Tmux</a>.
@@ -83,5 +80,5 @@ export default function About() {
       </p>
 
     </Layout>
-  );
+  )
 }

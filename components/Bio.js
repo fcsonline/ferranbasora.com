@@ -1,17 +1,18 @@
-import clsx from "clsx";
+import { PropTypes } from 'prop-types'
+import clsx from 'clsx'
 
-import Image from "./Image";
-import { getSiteMetaData } from "utils/helpers";
+import Image from './Image'
+import { getSiteMetaData } from 'utils/helpers'
 
-export default function Bio({ className }) {
-  const { author, social } = getSiteMetaData();
+const Bio = ({ className }) => {
+  const { author, social } = getSiteMetaData()
 
   return (
-    <div className={clsx(`flex flex-row`, className)}>
+    <div className={clsx('flex flex-row', className)}>
       <Image
         className="flex-shrink-0 mb-0 mr-3 rounded-full w-14 h-14"
-        src={require("../content/assets/profile.jpg")}
-        previewSrc={require("../content/assets/profile.jpg?lqip")}
+        src={require('../content/assets/profile.jpg')}
+        previewSrc={require('../content/assets/profile.jpg?lqip')}
         alt={author.name}
       />
       <p className="text-base leading-7">
@@ -30,5 +31,11 @@ export default function Bio({ className }) {
         {author.summary}
       </p>
     </div>
-  );
+  )
 }
+
+Bio.propTypes = {
+  className: PropTypes.string
+}
+
+export default Bio

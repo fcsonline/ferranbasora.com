@@ -1,6 +1,6 @@
-import "lazysizes";
+import 'lazysizes'
 
-export default function Image({ alt, src, previewSrc, className }) {
+export default function Image ({ alt, src, previewSrc, className }) {
   return (
     <img
       className={`lazyload blur-up ${className}`}
@@ -8,5 +8,5 @@ export default function Image({ alt, src, previewSrc, className }) {
       src={previewSrc}
       data-srcset={src}
     />
-  );
+  )
 }

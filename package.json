@@ -1,9 +1,10 @@
 {
   "name": "ferranbasora.com",
-  "version": "0.2.0",
-  "description": "A Next.js template for a blog website.",
+  "version": "0.3.0",
+  "description": "My personal blog",
   "private": true,
   "scripts": {
+    "lint": "eslint components/* pages/* utils/*",
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start"
@@ -27,12 +28,18 @@
     "react-markdown": "^4.3.1",
     "react-syntax-highlighter": "^13.5.3",
     "sitemap": "^6.3.3",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typeface-merriweather": "^0.0.72",
-    "typeface-open-sans": "^0.0.75",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "typeface-open-sans": "^0.0.75"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.2.0",
+    "eslint": "^7.12.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.5",
     "gray-matter": "^4.0.2"
   },
   "license": "MIT",

@@ -1,11 +1,10 @@
-import { getSiteMetaData } from "utils/helpers";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { getSiteMetaData } from 'utils/helpers'
+import Link from 'next/link'
 
-import Nav from "components/Nav";
+import Nav from 'components/Nav'
 
-export default function Header() {
-  const siteMetadata = getSiteMetaData();
+const Header = () => {
+  const siteMetadata = getSiteMetaData()
 
   return (
     <div className="flex flex-row">
@@ -20,5 +19,7 @@ export default function Header() {
         <Nav />
       </div>
     </div>
-  );
+  )
 }
+
+export default Header

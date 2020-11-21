@@ -1,9 +1,8 @@
-import { getSiteMetaData } from "utils/helpers";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { getSiteMetaData } from 'utils/helpers'
+import Link from 'next/link'
 
-export default function Footer() {
-  const { author, social, title } = getSiteMetaData();
+const Footer = () => {
+  const { author, title } = getSiteMetaData()
 
   return (
     <div className="flex flex-row w-full">
@@ -17,10 +16,12 @@ export default function Footer() {
 
         <br />
 
-        © {new Date().getFullYear()}, Built with{" "}
+        © {new Date().getFullYear()}, Built with{' '}
 
         <a href="https://nextjs.org/">Next.js</a>
       </p>
     </div>
-  );
+  )
 }
+
+export default Footer
