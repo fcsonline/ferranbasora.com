@@ -1,9 +1,9 @@
 import { PropTypes } from 'prop-types'
 import Link from 'next/link'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown/with-html'
 
 import Layout from 'components/Layout'
-import Image from 'components/Image'
 import SEO from 'components/Seo'
 import Bio from 'components/Bio'
 import CodeBlock from 'components/CodeBlock'
@@ -15,30 +15,27 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => 
     const assetSrc = () => {
       if (src.startsWith('http')) return src
 
-      return require(`../../content/posts/${slug}/${src}`)
+      return `/posts/${slug}/${src}`
     }
 
-    const assetPreviewSrc = () => {
-      if (src.startsWith('http')) return src
-      if (src.endsWith('.gif')) return null
-      if (src.endsWith('.svg')) return null
-
-      return require(`../../content/posts/${slug}/${src}?lqip`)
-    }
-
-    MarkdownImage.propTypes = {
-      src: PropTypes.string,
-      alt: PropTypes.string
-    }
+    const unoptimized = src.startsWith('http')
 
     return (
-      <Image
-        alt={alt}
-        src={assetSrc()}
-        previewSrc={assetPreviewSrc()}
-        className="w-full"
-      />
+      <div className="w-full relative" style={{ width: '100%', height: '500px' }}>
+        <Image
+          src={assetSrc()}
+          alt={alt}
+          unoptimized={unoptimized}
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
     )
+  }
+
+  MarkdownImage.propTypes = {
+    src: PropTypes.string,
+    alt: PropTypes.string
   }
 
   const MarkdownLink = ({ href, children }) => {
@@ -57,7 +54,7 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => 
     children: PropTypes.node
   }
 
-  const image = frontmatter.thumbnail ? require(`../../content/posts/${slug}/${frontmatter.thumbnail}`) : null
+  const image = frontmatter.thumbnail ? `/posts/${slug}/${frontmatter.thumbnail}` : null
 
   return (
     <Layout>

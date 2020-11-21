@@ -1,9 +1,9 @@
 import { PropTypes } from 'prop-types'
 import Link from 'next/link'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown/with-html'
 
 import Layout from 'components/Layout'
-import Image from 'components/Image'
 import SEO from 'components/Seo'
 import Bio from 'components/Bio'
 import CodeBlock from 'components/CodeBlock'
@@ -15,24 +15,21 @@ const Project = ({ project, slug, frontmatter, duration, nextProject, previousPr
     const assetSrc = () => {
       if (src.startsWith('http')) return src
 
-      return require(`../../content/projects/${slug}/${src}`)
+      return `/projects/${slug}/${src}`
     }
 
-    const assetPreviewSrc = () => {
-      if (src.startsWith('http')) return src
-      if (src.endsWith('.gif')) return null
-      if (src.endsWith('.svg')) return null
-
-      return require(`../../content/projects/${slug}/${src}?lqip`)
-    }
+    const unoptimized = src.startsWith('http')
 
     return (
-      <Image
-        alt={alt}
-        src={assetSrc()}
-        previewSrc={assetPreviewSrc()}
-        className="w-full"
-      />
+      <div className="w-full relative" style={{ width: '100%', height: '500px' }}>
+        <Image
+          src={assetSrc()}
+          alt={alt}
+          unoptimized={unoptimized}
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
     )
   }
 
@@ -57,7 +54,7 @@ const Project = ({ project, slug, frontmatter, duration, nextProject, previousPr
     children: PropTypes.node
   }
 
-  const image = require(`../../content/projects/${slug}/thumbnail.png`)
+  const image = `/projects/${slug}/thumbnail.png`
 
   return (
     <Layout>

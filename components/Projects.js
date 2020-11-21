@@ -1,18 +1,25 @@
 import { PropTypes } from 'prop-types'
 import Link from 'next/link'
-import Image from './Image'
+import Image from 'next/image'
 
 const Projects = ({ projects }) => {
   return (
     <div className="grid gap-4 mb-16">
       {projects.map(({ frontmatter: { title, description, image, date, tags }, slug }) => {
-        const thumbnail = require(`../content/projects/${slug}/thumbnail.png`)
+        const thumbnail = `/projects/${slug}/thumbnail.png`
         return (
           <Link key={title} href={'/projects/[slug]'} as={`/projects/${slug}`}>
             <a className="flex h-48 max-w-32">
-              <div className="flex bg-white hover:shadow-lg shadow-md rounded-lg overflow-hidden">
+              <div className="flex w-full bg-white hover:shadow-lg shadow-md rounded-lg overflow-hidden">
                 <div className="w-1/3">
-                  <Image alt={title} src={thumbnail} className="h-full object-cover" />
+                  <div className="h-full w-full relative overflow-hidden">
+                    <Image
+                      src={thumbnail}
+                      alt={title}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
                 </div>
 
                 <div className="w-2/3 p-4 md:p-4">

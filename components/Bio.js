@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types'
 import clsx from 'clsx'
 
-import Image from './Image'
+import Image from 'next/image'
 import { getSiteMetaData } from 'utils/helpers'
 
 const Bio = ({ className }) => {
@@ -9,12 +9,14 @@ const Bio = ({ className }) => {
 
   return (
     <div className={clsx('flex flex-row', className)}>
-      <Image
-        className="flex-shrink-0 mb-0 mr-3 rounded-full w-14 h-14"
-        src={require('../content/assets/profile.jpg')}
-        previewSrc={require('../content/assets/profile.jpg?lqip')}
-        alt={author.name}
-      />
+      <div className="flex-shrink-0 mb-0 mr-3 rounded-full w-14 h-14 relative overflow-hidden">
+        <Image
+          src="/profile.jpg"
+          alt={author.name}
+          width="387"
+          height="387"
+        />
+      </div>
       <p className="text-base leading-7">
         Hi there 👋, I’m {author.name}, Software Engineer. I write this
         <a className='ml-1' href='/'>

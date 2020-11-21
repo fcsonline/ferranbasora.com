@@ -1,6 +1,7 @@
+import Image from 'next/image'
+
 import Layout from 'components/Layout'
 import SEO from 'components/Seo'
-import Image from 'components/Image'
 import { getSiteMetaData } from 'utils/helpers'
 
 export default function About () {
@@ -10,12 +11,14 @@ export default function About () {
     <Layout>
       <SEO title="About" />
 
-      <Image
-        className="mr-3 rounded-full w-20 h-20"
-        src={require('../content/assets/profile.jpg')}
-        previewSrc={require('../content/assets/profile.jpg?lqip')}
-        alt={author.name}
-      />
+      <div className="mr-3 rounded-full w-20 h-20 relative overflow-hidden">
+        <Image
+          src="/profile.jpg"
+          alt={author.name}
+          width="387"
+          height="387"
+        />
+      </div>
 
       <p className="mb-6 mt-12 text-lg text-gray-800">
         Hi, I&apos;m Ferran.

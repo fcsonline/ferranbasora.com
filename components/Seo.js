@@ -8,7 +8,7 @@ const Seo = ({ title, description, url, image, canonical }) => {
   const metaTitle = title || siteMetadata.title
   const metaDescription = description || siteMetadata.description
   const metaUrl = url && url[0] === '/' ? `${siteMetadata.siteUrl}${url}` : url
-  const metaImage = image || require('../content/assets/profile.jpg')
+  const metaImage = image || '/profile.jpg'
 
   return (
     <Head>
