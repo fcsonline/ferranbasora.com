@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { SitemapStream, streamToPromise, EnumChangefreq } from 'sitemap'
 import { createGzip } from 'zlib'
 
@@ -26,7 +25,7 @@ export default async (req, res) => {
 
     const posts = getSortedPosts(false)
 
-    posts.map(post => {
+    posts.forEach(post => {
       smStream.write({
         url: `/posts/${post.slug}`,
         lastmod: post.date,
@@ -36,9 +35,9 @@ export default async (req, res) => {
 
     const projects = getSortedProjects()
 
-    projects.map(project => {
+    projects.forEach(project => {
       smStream.write({
-        url: `/project/${project.slug}`,
+        url: `/projects/${project.slug}`,
         lastmod: project.date,
         changefreq: EnumChangefreq.WEEKLY
       })
