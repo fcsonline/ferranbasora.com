@@ -12,12 +12,9 @@
   "dependencies": {
     "autoprefixer": "^9",
     "clsx": "^1.1.1",
-    "imagemin-mozjpeg": "^9.0.0",
-    "imagemin-optipng": "^8.0.0",
     "next": "10.0.2",
     "next-compose-plugins": "^2.2.1",
     "next-offline": "^5.0.3",
-    "next-optimized-images": "^2.6.1",
     "postcss": "^7",
     "postcss-preset-env": "^6.7.0",
     "react": "17.0.1",
