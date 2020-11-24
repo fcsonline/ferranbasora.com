@@ -21,5 +21,11 @@ module.exports = {
   ],
   rules: {
     'react/react-in-jsx-scope': 'off'
+  },
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect'
+    }
   }
 }
