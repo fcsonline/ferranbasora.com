@@ -308,7 +308,7 @@ clear, and both components can evolve without clashing between them. Do you
 want to add multiselection in `SelectableList`? Go for it. Are you adding new
 stuff to `CartItem`? No problem.
 
-In terms of component logic, play with event bubbling to decide how is the
+In terms of component logic, play with event bubbling to decide who is the
 owner for each event is generated in the application. If you think an event
 should not go through upper components, stop it with `stopPropagation` method.
 
