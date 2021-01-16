@@ -4,6 +4,12 @@ import Highlight, { defaultProps } from 'prism-react-renderer'
 import { useInView } from 'react-intersection-observer'
 import nightOwl from 'prism-react-renderer/themes/nightOwl'
 
+import Prism from 'prism-react-renderer/prism';
+
+(typeof global !== 'undefined' ? global : window).Prism = Prism
+
+require('prismjs/components/prism-rust')
+
 const MarkdownCodeBlock = ({ children, className }) => {
   const { ref, inView, entry } = useInView({})
   const [hasBeenInView, setHasBeenInView] = React.useState(false)
@@ -26,7 +32,7 @@ const MarkdownCodeBlock = ({ children, className }) => {
   return (
     <div ref={ref}>
       { hasBeenInView && (
-        <Highlight {...defaultProps} code={code} language={language} theme={nightOwl}>
+        <Highlight Prism={Prism} {...defaultProps} code={code} language={language} theme={nightOwl}>
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <pre className={className} style={{ ...style, padding: '20px' }}>
               {tokens.map((line, i) => (

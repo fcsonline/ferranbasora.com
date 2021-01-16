@@ -6,10 +6,6 @@ a {
   @apply font-semibold;
 }
 
-/* a:hover { */
-/*   @apply underline; */
-/* } */
-
 span,
 p {
   @apply font-light;
@@ -25,4 +21,9 @@ p {
 .blur-up.lazyloaded {
   -webkit-filter: blur(0);
   filter: blur(0);
+}
+
+.prose code::after {
+  content: '';
+  display: none !important;
 }
