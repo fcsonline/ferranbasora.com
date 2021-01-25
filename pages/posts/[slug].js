@@ -1,16 +1,45 @@
 import { PropTypes } from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
-import mdx from '@next/mdx'
+import renderToString from 'next-mdx-remote/render-to-string'
+import hydrate from 'next-mdx-remote/hydrate'
 
 import Layout from 'components/Layout'
 import SEO from 'components/Seo'
 import Bio from 'components/Bio'
-import CodeBlock from 'components/CodeBlock'
+// import CodeBlock from 'components/CodeBlock'
+// import Chart from 'components/Chart'
 
 import { getPostBySlug, getPostsSlugs } from 'utils/posts'
 
-const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => {
+const Chart = () => {
+  return (
+    <div onClick={() => alert(2)}>
+      <h2 className="mt-6 mb-6 text-4xl font-black leading-none font-display">
+        YOLOOOOOOOOOOOOOOO
+      </h2>
+    </div>
+  )
+}
+
+const components = {
+  Chart
+}
+
+/**
+ * serialize mdx to string
+ */
+export async function mdxToString(mdx) {
+  return await renderToString(mdx, {components})
+}
+/**
+ * render string back to react components
+ */
+export function stringToMdx(string) {
+  return hydrate(string, {components})
+}
+
+const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost, source }) => {
   const MarkdownImage = ({ src, alt }) => {
     const assetSrc = () => {
       if (src.startsWith('http')) return src
@@ -56,9 +85,10 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => 
 
   const image = frontmatter.thumbnail ? `/posts/${slug}/${frontmatter.thumbnail}` : null
 
-  const transpile = async (content) => {
-    return await mdx(content)
-  }
+  console.log('FCS', source)
+
+  const content = stringToMdx(source, { components })
+  console.log('FCS222', content)
 
   return (
     <Layout>
@@ -92,7 +122,7 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => 
             {duration} minute read
           </span>
         </header>
-        {transpile(post.content)}
+        {content}
       </article>
       <nav className="flex justify-between mb-10 mt-10">
         {previousPost
@@ -167,5 +197,9 @@ export async function getStaticProps ({ params: { slug } }) {
     postData.nextPost = null
   }
 
-  return { props: postData }
+  // const source = 'Some **mdx** text, with a component <Chart />'
+  const content = await mdxToString(postData.post.content || '')
+  console.log('KAKA', content)
+
+  return { props: { ...postData, source: content } }
 }
