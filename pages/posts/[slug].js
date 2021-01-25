@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
-import ReactMarkdown from 'react-markdown/with-html'
+import mdx from '@next/mdx'
 
 import Layout from 'components/Layout'
 import SEO from 'components/Seo'
@@ -56,6 +56,10 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => 
 
   const image = frontmatter.thumbnail ? `/posts/${slug}/${frontmatter.thumbnail}` : null
 
+  const transpile = async (content) => {
+    return await mdx(content)
+  }
+
   return (
     <Layout>
       <SEO
@@ -88,12 +92,7 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => 
             {duration} minute read
           </span>
         </header>
-        <ReactMarkdown
-          className="mb-4 prose-sm prose sm:prose lg:prose-lg"
-          escapeHtml={false}
-          source={post.content}
-          renderers={{ code: CodeBlock, image: MarkdownImage, link: MarkdownLink }}
-        />
+        {transpile(post.content)}
       </article>
       <nav className="flex justify-between mb-10 mt-10">
         {previousPost

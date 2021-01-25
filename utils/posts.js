@@ -28,7 +28,7 @@ export function getSortedPosts (drafts) {
     .map(({ directory }) => {
       // Get raw content from file
       const markdownWithMetadata = fs
-        .readFileSync(`content/posts/${directory}/index.md`)
+        .readFileSync(`content/posts/${directory}/index.mdx`)
         .toString()
 
       // Parse markdown, get frontmatter data, excerpt and content.
