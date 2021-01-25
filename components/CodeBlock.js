@@ -5,8 +5,16 @@ import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { useInView } from 'react-intersection-observer'
 
 const CodeBlock = ({ language, value }) => {
-  const { ref, inView } = useInView({})
+  const { ref, inView, entry } = useInView({})
   const [hasBeenInView, setHasBeenInView] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!entry) return
+
+    const onTop = window.scrollY > entry.boundingClientRect.y
+
+    setHasBeenInView(hasBeenInView || onTop)
+  }, [entry])
 
   React.useEffect(() => {
     setHasBeenInView(hasBeenInView || inView)
