@@ -14,10 +14,38 @@ import { getPostBySlug, getPostsSlugs } from 'utils/posts'
 
 const Chart = () => {
   return (
-    <div onClick={() => alert(2)}>
-      <h2 className="mt-6 mb-6 text-4xl font-black leading-none font-display">
-        YOLOOOOOOOOOOOOOOO
+    <div className="border-4 border-indigo-600 p-4" onClick={() => alert('MDX!')}>
+      <h2 className="mt-4 mb-2 text-4xl font-black leading-none font-display">
+        Markdown UI
       </h2>
+      <div className="flex flex-row sm:flex-column gap-2">
+        <div className="border-4 border-indigo-600 w-1/2 p-4">
+          <h3 className="my-2 font-black leading-none font-display">
+            Markdown
+          </h3>
+          <textarea>
+            ```kanban
+              ## Progress
+
+              - Task 1
+              - Task 2
+
+              ## Done
+              - Task 3
+              - Task 4
+            ```
+          </textarea>
+        </div>
+        <div className="border-4 border-red-600 w-1/2 p-4">
+          <h3 className="my-2 font-black leading-none font-display">
+            React
+          </h3>
+          <div className="border-2 border-red-600">
+              Progress
+              Done
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
@@ -122,7 +150,9 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost, sourc
             {duration} minute read
           </span>
         </header>
-        {content}
+        <div className="mb-4 prose-sm prose sm:prose lg:prose-lg">
+          {content}
+        </div>
       </article>
       <nav className="flex justify-between mb-10 mt-10">
         {previousPost
