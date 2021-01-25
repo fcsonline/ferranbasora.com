@@ -1,60 +1,17 @@
 import { PropTypes } from 'prop-types'
+import { mdxToString, stringToMdx } from 'utils/helpers'
 import Link from 'next/link'
-import Image from 'next/image'
-import ReactMarkdown from 'react-markdown/with-html'
 
 import Layout from 'components/Layout'
 import SEO from 'components/Seo'
 import Bio from 'components/Bio'
-import CodeBlock from 'components/CodeBlock'
 
 import { getProjectBySlug, getProjectsSlugs } from 'utils/projects'
 
-const Project = ({ project, slug, frontmatter, duration, nextProject, previousProject }) => {
-  const MarkdownImage = ({ src, alt }) => {
-    const assetSrc = () => {
-      if (src.startsWith('http')) return src
-
-      return `/projects/${slug}/${src}`
-    }
-
-    const unoptimized = src.startsWith('http')
-
-    return (
-      <div className="w-full relative" style={{ width: '100%', height: '500px' }}>
-        <Image
-          src={assetSrc()}
-          alt={alt}
-          unoptimized={unoptimized}
-          layout="fill"
-          objectFit="contain"
-        />
-      </div>
-    )
-  }
-
-  MarkdownImage.propTypes = {
-    src: PropTypes.string,
-    alt: PropTypes.string
-  }
-
-  const MarkdownLink = ({ href, children }) => {
-    const rel = href.startsWith('http') ? 'noopener noreferrer' : null
-    const target = href.startsWith('http') ? '_blank' : null
-
-    return (
-      <a href={href} rel={rel} target={target}>
-        {children}
-      </a>
-    )
-  }
-
-  MarkdownLink.propTypes = {
-    href: PropTypes.string,
-    children: PropTypes.node
-  }
-
+const Project = ({ project, slug, frontmatter, duration, nextProject, previousProject, source }) => {
   const image = `/projects/${slug}/thumbnail.png`
+
+  const content = stringToMdx(source, 'projects', slug)
 
   return (
     <Layout>
@@ -79,12 +36,10 @@ const Project = ({ project, slug, frontmatter, duration, nextProject, previousPr
             {frontmatter.date}
           </span>
         </header>
-        <ReactMarkdown
-          className="mb-4 prose-sm prose sm:prose lg:prose-lg"
-          escapeHtml={false}
-          source={project.content}
-          renderers={{ code: CodeBlock, image: MarkdownImage, link: MarkdownLink }}
-        />
+
+        <div className="mb-4 prose-sm prose sm:prose lg:prose-lg">
+          {content}
+        </div>
 
         <div className="mt-8">
           <span className="text-lg font-bold text-gray-700">
@@ -148,7 +103,8 @@ Project.propTypes = {
   frontmatter: PropTypes.object,
   duration: PropTypes.number,
   nextProject: PropTypes.object,
-  previousProject: PropTypes.object
+  previousProject: PropTypes.object,
+  source: PropTypes.object
 }
 
 export default Project
@@ -173,5 +129,7 @@ export async function getStaticProps ({ params: { slug } }) {
     projectData.nextProject = null
   }
 
-  return { props: projectData }
+  const content = await mdxToString(projectData.project.content || '', 'projects', slug)
+
+  return { props: { ...projectData, source: content } }
 }

@@ -1,60 +1,17 @@
 import { PropTypes } from 'prop-types'
+import { mdxToString, stringToMdx } from 'utils/helpers'
 import Link from 'next/link'
-import Image from 'next/image'
-import ReactMarkdown from 'react-markdown/with-html'
 
 import Layout from 'components/Layout'
 import SEO from 'components/Seo'
 import Bio from 'components/Bio'
-import CodeBlock from 'components/CodeBlock'
 
 import { getPostBySlug, getPostsSlugs } from 'utils/posts'
 
-const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => {
-  const MarkdownImage = ({ src, alt }) => {
-    const assetSrc = () => {
-      if (src.startsWith('http')) return src
-
-      return `/posts/${slug}/${src}`
-    }
-
-    const unoptimized = src.startsWith('http')
-
-    return (
-      <div className="w-full relative" style={{ width: '100%', height: '500px' }}>
-        <Image
-          src={assetSrc()}
-          alt={alt}
-          unoptimized={unoptimized}
-          layout="fill"
-          objectFit="contain"
-        />
-      </div>
-    )
-  }
-
-  MarkdownImage.propTypes = {
-    src: PropTypes.string,
-    alt: PropTypes.string
-  }
-
-  const MarkdownLink = ({ href, children }) => {
-    const rel = href.startsWith('http') ? 'noopener noreferrer' : null
-    const target = href.startsWith('http') ? '_blank' : null
-
-    return (
-      <a href={href} rel={rel} target={target}>
-        {children}
-      </a>
-    )
-  }
-
-  MarkdownLink.propTypes = {
-    href: PropTypes.string,
-    children: PropTypes.node
-  }
-
+const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost, source }) => {
   const image = frontmatter.thumbnail ? `/posts/${slug}/${frontmatter.thumbnail}` : null
+
+  const content = stringToMdx(source, 'posts', slug)
 
   return (
     <Layout>
@@ -88,12 +45,9 @@ const Post = ({ post, slug, frontmatter, duration, nextPost, previousPost }) => 
             {duration} minute read
           </span>
         </header>
-        <ReactMarkdown
-          className="mb-4 prose-sm prose sm:prose lg:prose-lg"
-          escapeHtml={false}
-          source={post.content}
-          renderers={{ code: CodeBlock, image: MarkdownImage, link: MarkdownLink }}
-        />
+        <div className="mb-4 prose-sm prose sm:prose lg:prose-lg">
+          {content}
+        </div>
       </article>
       <nav className="flex justify-between mb-10 mt-10">
         {previousPost
@@ -143,7 +97,8 @@ Post.propTypes = {
   frontmatter: PropTypes.object,
   duration: PropTypes.number,
   nextPost: PropTypes.object,
-  previousPost: PropTypes.object
+  previousPost: PropTypes.object,
+  source: PropTypes.object
 }
 
 export default Post
@@ -168,5 +123,7 @@ export async function getStaticProps ({ params: { slug } }) {
     postData.nextPost = null
   }
 
-  return { props: postData }
+  const content = await mdxToString(postData.post.content || '', 'posts', slug)
+
+  return { props: { ...postData, source: content } }
 }
