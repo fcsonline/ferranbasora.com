@@ -231,7 +231,7 @@ const App = () => {
   const [records, setRecords] = React.useState([])
 
   React.useEffect(() => {
-    import('./wasm-build/csvlib').then(({ parse }
+    import('./csvlib').then(({ parse }
     ) => {
       setRecords(parse(source))
       setParse(() => parse)
@@ -311,7 +311,7 @@ const App = () => {
   const [store, setStore] = React.useState(() => {})
 
   React.useEffect(() => {
-    import('./wasm-build/csvlib').then(({ parse, store }
+    import('./csvlib').then(({ parse, store }
     ) => {
       ...
       setStore(() => store)
@@ -347,7 +347,6 @@ And we get the final goal of new Markdown 🎉 for this dynamic table component:
 ## Conclusion
 
 <TableDemo />
-<KanbanDemo />
 
 ```
 npx create-react-app react-client

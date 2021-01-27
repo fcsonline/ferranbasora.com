@@ -3,6 +3,7 @@ import renderToString from 'next-mdx-remote/render-to-string'
 import hydrate from 'next-mdx-remote/hydrate'
 
 import CodeBlock from 'components/markdown/CodeBlock'
+import Paragraph from 'components/markdown/Paragraph'
 import Pre from 'components/markdown/Pre'
 import Link from 'components/markdown/Link'
 import Image from 'components/markdown/Image'
@@ -20,6 +21,7 @@ const contextualize = (context, slug) => {
     TableDemo,
     KanbanDemo,
 
+    p: Paragraph,
     pre: Pre,
     img: ContextImage,
     a: Link,
