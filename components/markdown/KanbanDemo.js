@@ -1,4 +1,4 @@
-const MarkdownTableDemo = () => {
+const KanbanDemo = () => {
   const value = `
     \`\`\`kanban
       ## Progress
@@ -15,7 +15,7 @@ const MarkdownTableDemo = () => {
   return (
     <div className="border-4 border-indigo-600 p-4" onClick={() => alert('MDX!')}>
       <h2 className="mt-4 mb-2 text-4xl font-black leading-none font-display">
-        Markdown UI - Table
+        Markdown UI - Kanban
       </h2>
       <div className="flex flex-row sm:flex-column gap-2">
         <div className="border-4 border-indigo-600 w-1/2 p-4">
@@ -39,4 +39,4 @@ const MarkdownTableDemo = () => {
   )
 }
 
-export default MarkdownTableDemo
+export default KanbanDemo

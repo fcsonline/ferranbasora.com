@@ -1,7 +1,7 @@
-import Image from 'next/image'
+import NextImage from 'next/image'
 import { PropTypes } from 'prop-types'
 
-const MarkdownImage = ({ src, alt, context, slug }) => {
+const Image = ({ src, alt, context, slug }) => {
   const assetSrc = () => {
     if (src.startsWith('http')) return src
 
@@ -12,7 +12,7 @@ const MarkdownImage = ({ src, alt, context, slug }) => {
 
   return (
     <div className="w-full relative" style={{ width: '100%', height: '500px' }}>
-      <Image
+      <NextImage
         src={assetSrc()}
         alt={alt}
         unoptimized={unoptimized}
@@ -23,11 +23,11 @@ const MarkdownImage = ({ src, alt, context, slug }) => {
   )
 }
 
-MarkdownImage.propTypes = {
+Image.propTypes = {
   context: PropTypes.string,
   slug: PropTypes.string,
   src: PropTypes.string,
   alt: PropTypes.string
 }
 
-export default MarkdownImage
+export default Image

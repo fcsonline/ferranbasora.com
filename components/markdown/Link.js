@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 
-const MarkdownLink = ({ href, children }) => {
+const Link = ({ href, children }) => {
   const rel = href.startsWith('http') ? 'noopener noreferrer' : null
   const target = href.startsWith('http') ? '_blank' : null
 
@@ -11,9 +11,9 @@ const MarkdownLink = ({ href, children }) => {
   )
 }
 
-MarkdownLink.propTypes = {
+Link.propTypes = {
   href: PropTypes.string,
   children: PropTypes.node
 }
 
-export default MarkdownLink
+export default Link

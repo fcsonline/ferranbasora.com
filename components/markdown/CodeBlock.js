@@ -10,7 +10,7 @@ import Prism from 'prism-react-renderer/prism';
 
 require('prismjs/components/prism-rust')
 
-const MarkdownCodeBlock = ({ children, className }) => {
+const CodeBlock = ({ children, className }) => {
   const { ref, inView, entry } = useInView({})
   const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
@@ -50,9 +50,9 @@ const MarkdownCodeBlock = ({ children, className }) => {
   )
 }
 
-MarkdownCodeBlock.propTypes = {
+CodeBlock.propTypes = {
   children: PropTypes.string,
   className: PropTypes.string
 }
 
-export default MarkdownCodeBlock
+export default CodeBlock

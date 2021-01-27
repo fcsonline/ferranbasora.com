@@ -2,28 +2,28 @@ import SiteConfig from '../site.config'
 import renderToString from 'next-mdx-remote/render-to-string'
 import hydrate from 'next-mdx-remote/hydrate'
 
-import MarkdownCodeBlock from 'components/MarkdownCodeBlock'
-import MarkdownPre from 'components/MarkdownPre'
-import MarkdownLink from 'components/MarkdownLink'
-import MarkdownImage from 'components/MarkdownImage'
-import MarkdownTableDemo from 'components/MarkdownTableDemo'
-import MarkdownKanbanDemo from 'components/MarkdownKanbanDemo'
+import CodeBlock from 'components/markdown/CodeBlock'
+import Pre from 'components/markdown/Pre'
+import Link from 'components/markdown/Link'
+import Image from 'components/markdown/Image'
+import TableDemo from 'components/markdown/TableDemo'
+import KanbanDemo from 'components/markdown/KanbanDemo'
 
 export function getSiteMetaData () {
   return SiteConfig.siteMetadata
 }
 
 const contextualize = (context, slug) => {
-  const ContextMarkdownImage = (props) => <MarkdownImage {...props} context={context} slug={slug} />
+  const ContextImage = (props) => <Image {...props} context={context} slug={slug} />
 
   return {
-    MarkdownTableDemo,
-    MarkdownKanbanDemo,
+    TableDemo,
+    KanbanDemo,
 
-    pre: MarkdownPre,
-    img: ContextMarkdownImage,
-    a: MarkdownLink,
-    code: MarkdownCodeBlock
+    pre: Pre,
+    img: ContextImage,
+    a: Link,
+    code: CodeBlock
   }
 }
 
