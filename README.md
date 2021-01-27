@@ -1,5 +1,5 @@
 <h1 align="center">
-  Next.js blog starter
+  ferranbasora.com Next.js blog starter
 </h1>
 
 Start off your writing journey with this Next.js markdown blog template.
