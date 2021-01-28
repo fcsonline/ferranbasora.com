@@ -5,35 +5,39 @@ date: 2021-01-15
 thumbnail: markdown-ui.png
 ---
 
-Since few years ago the idea of a [second brain]() has been resonating on me.
-The capability to store infinite amount of information interesting to me and
-be able to sort it, categorize it and create relations between items, lets you
-increase the knowledge in many topics in this world and improve day by day.
+Since a few years ago the idea of a [Second Brain](https://fortelabs.co/blog/basboverview/)
+has been resonating with me. The capability to store an infinite amount of
+information interesting to me and be able to sort it, categorize it and create
+relations between items, lets you increase the knowledge in many topics in this
+world and improve day by day.
+
 
 After trying and evaluate many solutions out there like
 [Workflowy](https://workflowy.com/), [Notion](https://workflowy.com/) and now
 [Obsidian](https://obsidian.md/), it is clear to me that the best approach to
 store this kind of information is simple Markdown files. The simplicity and the
-capability to backup it somewhere are the main reason to follow this way.
+capability to backup it somewhere is the main reason to follow this way.
 
-But coming from Notion, I miss some nice feature like kanban views, calendars, or
+But coming from Notion, I miss some nice features like kanban views, calendars, or
 tables. Something that doesn't come out of the box in the Markdown spec.
 
 One cool approach to store complex information in markdowns is by the block of
 code prefixed by &#96;&#96;&#96;. You have seen this popular syntax in many source control
-to show syntax highlighting.
+to show syntax highlighting of different programing languages.
 
 ## Goal
 
-In this post, I want to explore and experiment the possibilities of using this
-approach to store more rich information like kanban but always been able to
-store in plain text for markdown files. This idea is not new and it is
-implemented in other places like
-[here](https://marketplace.visualstudio.com/items?itemName=coddx.coddx-alpha)
-and [here](https://plantuml.com/), but I wanted to play
-with some technology new to me like [WASM](https://webassembly.org/).
+In this post, I want to explore and experiment with the possibilities of using this
+approach to store more rich information, like the one required to model a kanban board.
+The requirement is to be always able to store back to plain text for markdown
+files. This idea is not new and it is implemented in other places like
+[Github todos](https://docs.github.com/en/github/managing-your-work-on-github/about-task-lists),
+[kanbans](https://marketplace.visualstudio.com/items?itemName=coddx.coddx-alpha)
+or [complex UML diagrams](https://plantuml.com/). To shine with this small
+project, I wanted to play with some technology new to me like
+[WASM](https://webassembly.org/).
 
-To let you know the which is the vision of this project you can check the
+To let you know which is the vision of this project you can check the
 conceptual lifecycle of the information in the diagram:
 
 ![Markdown UI lifecycle](markdown-ui.png)
@@ -57,14 +61,15 @@ the content:
 ````
 
 First of all, we need a grammar, similar to CSV structure, and we are going to
-use Parsing Expression Grammar (PEG). This grammar could be implemented in
+use [Parsing Expression Grammar](https://en.wikipedia.org/wiki/Parsing_expression_grammar)
+(PEG). This grammar could be implemented in
 Javascript with a library like [pegjs](https://pegjs.org/), but since we are
 implementing this step in Rust, we are going to use
-[pest-rs](https://bitbegin.github.io/pest-rs/).
+[pest-rs](https://bitbegin.github.io/pest-rs/) crate.
 
 The grammar needs to support floats for each one of the cells, called in this
 case `Field`. Then, a list of floats separated commas will form the rows of the
-table, in this case called `Record`. Then a `File` will be a list of `Record`
+table, in this case, called `Record`. Then a `File` will be a list of `Record`
 separated by break lines:
 
 ```peg
@@ -72,10 +77,11 @@ Field = { (ASCII_DIGIT | "." | "-")+ }
 Record = { Field ~ ("," ~ Field)* }
 File = { SOI ~ (Record ~ ("\r\n" | "\n"))* ~ EOI }
 ```
-We need to understand that this grammar doesn't include the classic Markdown
-_fence_ because this belongs to the Markdown parser.
 
-Once we have a nice grammar definition, we can use to build the parser.
+We need to understand that this grammar doesn't include the classic Markdown
+_fence_ because this responsability belongs to the Markdown parser.
+
+Once we have a nice grammar definition, we can use it to build the parser.
 Pest is going to build all the utility modules to be able to parse the incoming
 data to abstract syntax tree nodes.
 
@@ -163,10 +169,15 @@ Pair {
 ## Second step: Render
 
 Now that we the required structures to keep the AST of the table, we are
-going to send them as JSON to Javascript world, to get full functionality of
-libraries like React or Vue. In this case we are going to follow the React
-path. To be able to do this, we have to add `Serialize` and `Deserialize`
-traits to our tokens.
+going to send them as objects to Javascript world. Those objects will be the
+source that will feed some UI build on top of libraries like [React](https://reactjs.org/)
+or [Vue](https://en.wikipedia.org/wiki/Parsing_expression_grammar). In
+this case, we are going to follow the React path.
+
+Those [DTO](https://en.wikipedia.org/wiki/Data_transfer_object) will be
+represented by Rust struct, and will hold the parsed information in previous
+steps. To be able to go from WASM to Javascript, we have to add `Serialize` and
+`Deserialize` traits to our structures.
 
 ```rust
 use serde::{Serialize, Deserialize};
@@ -182,8 +193,10 @@ pub struct Record {
 }
 ```
 
-Thanks to [wasm-bindgen](https://rustwasm.github.io/wasm-bindgen/), we can
-declare a `parse` function that will be called from Javascript world:
+Thanks to [wasm-bindgen](https://rustwasm.github.io/wasm-bindgen/) and
+[wasm-pack](https://github.com/rustwasm/wasm-pack), we are able to build a
+package that includes a declaration of a `parse` function that can be called
+from Javascript world:
 
 ```rust
 #[wasm_bindgen]
@@ -216,7 +229,7 @@ pub fn parse(source: &str) -> JsValue {
 }
 ```
 
-This function will return `JsValue`'s with representation of our `Field` and
+This function will return `JsValue`'s with a representation of our `Field` and
 `Record` structures. Those objects will be used to render a nice and
 interactive UI build on top of React.
 
@@ -262,18 +275,23 @@ export default App;
 ## Third step: Interaction
 
 Now that we are able to render the parsed content, we can continue adding a bit
-of interactivity to the view. We are going to add a button to add new rows to
-the table. This button will modify the Javascript objects that represent those
-records and the UI will react according to the state.
+of interactivity to the view. You can imagine whatever nice use case for your
+widget. From adding buttons, drag and drop, calendars, etc.
+
+For demo purposes, we are going to add just a button to add new rows to
+the table.
 
 ![](table.png)
+
+This button will modify the internal state of Javascript objects that represent those
+records and the UI will react accordingly.
 
 ## Fourth step: Serialization
 
 Finally, the last step in this cycle is to serialize the React state back to
-Markdown plain text. To do this, we will call again a WASM function to compute
-this. With this approach, we encapsulate all the logic about parsing and
-serializing in the same module. To achieve this, we are going to code the
+Markdown plain text. To do this, we will call again a WASM function to
+compute this. With this approach, we encapsulate all the logic about parsing and
+serializing in the same WASM module. To achieve this, we are going to code the
 `store` function and expose it to `wasm_bindgen`:
 
 ```rust
@@ -300,8 +318,8 @@ pub fn store(js_objects: JsValue) -> JsValue {
 }
 ```
 
-Then, we call this new function from React passing as argument the modified
-records from the state:
+Then, we call this new function from React passing as argument all rows in the
+table from the state:
 
 ```javascript
 import React from 'react';
@@ -346,19 +364,12 @@ And we get the final goal of new Markdown 🎉 for this dynamic table component:
 
 ## Conclusion
 
+We went through all the steps required to parse arbitrary data to feed a reactive
+UI and close the cycle back to text. As we said, the possibilities of this
+approach for markdown documentation or more rich second brains are endless.
+
+To see a working demo widget, check the widget below:
+
 <TableDemo />
 
-```
-npx create-react-app react-client
-cargo new wasm
-cd react-client
-npm run eject
-
-cargo install wasm-pack
-wasm-pack build
-
-npm install --save-dev wasm-loader
-```
-
-
-Happy hacking!
+Thanks for reading it and happy hacking!
