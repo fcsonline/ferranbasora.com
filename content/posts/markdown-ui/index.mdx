@@ -1,7 +1,8 @@
 ---
 title: Markdown UI
-description: An experiment for Markdown components
-date: 2021-01-15
+description: An experiment on top of WASM about how to build rich interactive
+components based on Markdown content.
+date: 2021-01-30
 thumbnail: markdown-ui.png
 ---
 
@@ -22,23 +23,26 @@ But coming from Notion, I miss some nice features like kanban views, calendars, 
 tables. Something that doesn't come out of the box in the Markdown spec.
 
 One cool approach to store complex information in markdowns is by the block of
-code prefixed by &#96;&#96;&#96;. You have seen this popular syntax in many source control
-to show syntax highlighting of different programing languages.
+code prefixed by &#96;&#96;&#96;. You have seen this popular syntax in many
+source control platforms to show syntax highlighting of different programing
+languages.
 
 ## Goal
 
 In this post, I want to explore and experiment with the possibilities of using this
-approach to store more rich information, like the one required to model a kanban board.
-The requirement is to be always able to store back to plain text for markdown
-files. This idea is not new and it is implemented in other places like
+approach to render more rich components to show plain text, like the one
+required to model a simple interactive table.
+
+The goal after interact with the UI is to be able to store back to plain text into markdown
+files and close the cycle. This idea is not new and it is implemented in other places like
 [Github todos](https://docs.github.com/en/github/managing-your-work-on-github/about-task-lists),
 [kanbans](https://marketplace.visualstudio.com/items?itemName=coddx.coddx-alpha)
 or [complex UML diagrams](https://plantuml.com/). To shine with this small
 project, I wanted to play with some technology new to me like
 [WASM](https://webassembly.org/).
 
-To let you know which is the vision of this project you can check the
-conceptual lifecycle of the information in the diagram:
+To understand the project vision you can check the
+conceptual lifecycle of the information in the followin diagram:
 
 ![Markdown UI lifecycle](markdown-ui.png)
 
@@ -68,7 +72,7 @@ implementing this step in Rust, we are going to use
 [pest-rs](https://bitbegin.github.io/pest-rs/) crate.
 
 The grammar needs to support floats for each one of the cells, called in this
-case `Field`. Then, a list of floats separated commas will form the rows of the
+case `Field`. Then, a list of floats separated by commas will form the rows of the
 table, in this case, called `Record`. Then a `File` will be a list of `Record`
 separated by break lines:
 
@@ -78,8 +82,9 @@ Record = { Field ~ ("," ~ Field)* }
 File = { SOI ~ (Record ~ ("\r\n" | "\n"))* ~ EOI }
 ```
 
-We need to understand that this grammar doesn't include the classic Markdown
-_fence_ because this responsability belongs to the Markdown parser.
+We need to understand that this grammar doesn't include the classic Markdown code
+_fence_ (&#96;&#96;&#96;) because this responsibility belongs to the parent
+Markdown parser.
 
 Once we have a nice grammar definition, we can use it to build the parser.
 Pest is going to build all the utility modules to be able to parse the incoming
@@ -97,7 +102,8 @@ pub enum Rule {
 }
 ```
 
-On the other hand, it generates a parser to build the correct tree of nodes:
+On the other hand, it will also generate a parser to build the correct tree of
+nodes:
 
 ```rust
 extern crate pest;
@@ -168,15 +174,15 @@ Pair {
 
 ## Second step: Render
 
-Now that we the required structures to keep the AST of the table, we are
+Now that we have the required structures to keep the AST of the table, we are
 going to send them as objects to Javascript world. Those objects will be the
-source that will feed some UI build on top of libraries like [React](https://reactjs.org/)
+source that will feed some UI built on top of libraries like [React](https://reactjs.org/)
 or [Vue](https://en.wikipedia.org/wiki/Parsing_expression_grammar). In
 this case, we are going to follow the React path.
 
-Those [DTO](https://en.wikipedia.org/wiki/Data_transfer_object) will be
-represented by Rust struct, and will hold the parsed information in previous
-steps. To be able to go from WASM to Javascript, we have to add `Serialize` and
+Those [DTO](https://en.wikipedia.org/wiki/Data_transfer_object)'s will be
+represented by Rust structs that will hold the information parsed in previous
+steps. To be able to go from WASM to Javascript, we need to add `Serialize` and
 `Deserialize` traits to our structures.
 
 ```rust
@@ -283,8 +289,23 @@ the table.
 
 ![](table.png)
 
-This button will modify the internal state of Javascript objects that represent those
-records and the UI will react accordingly.
+This button will modify the internal state of Javascript objects that represents those
+records and the UI will react accordingly. As an example, we are going to as to the user
+a new row of float numbers to be added to the table:
+
+```javascript
+  const onClick = () => {
+    const value = prompt('Add a new row. Floats separated by commas:')
+    const items = parse(`${value}\n`)
+
+    setRecords([...records, ...items])
+  }
+
+  ...
+  <button onClick={onClick}>
+    <span>Add new row</span>
+  </button>
+```
 
 ## Fourth step: Serialization
 
@@ -372,4 +393,11 @@ To see a working demo widget, check the widget below:
 
 <TableDemo />
 
-Thanks for reading it and happy hacking!
+You can find the demo source code [here](https://github.com/fcsonline/markdown-ui-table)
+
+In a next post we are going to implement an interactive kanban board with tasks
+following the same strategy as this one. Stay tuned!
+
+Thanks for reading me and to all people that helped me to polish this article!
+
+Happy hacking!
