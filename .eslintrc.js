@@ -19,6 +19,7 @@ module.exports = {
   plugins: [
     'react'
   ],
+  ignorePatterns: ['**/TableDemo/*.js'],
   rules: {
     'react/react-in-jsx-scope': 'off'
   },
