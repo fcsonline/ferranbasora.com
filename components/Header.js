@@ -11,7 +11,7 @@ const Header = () => {
       <h1 className="mb-8">
         <Link href="/">
           <a className="font-black leading-none text-black no-underline text-xl font-display">
-            {siteMetadata.title}
+            <span className="font-black leading-none text-black text-xl font-display text-blue-400">~</span>{siteMetadata.title}
           </a>
         </Link>
       </h1>

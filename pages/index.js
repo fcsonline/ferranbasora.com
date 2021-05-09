@@ -11,7 +11,7 @@ import { getSortedPosts } from 'utils/posts'
 const Home = ({ posts }) => {
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title="Ferran Basora - Home page" />
       <Intro className="my-14" />
       <Title>Recent posts</Title>
       <Posts posts={posts.slice(0, 3)}/>
