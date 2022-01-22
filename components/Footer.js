@@ -7,8 +7,8 @@ const Footer = () => {
   return (
     <div className="flex flex-row w-full">
       <Link href="/">
-        <a className="w-1/2 font-black leading-none text-gray-700 no-underline text-lg font-display mb-8">
-          <span className="font-black leading-none text-black text-lg font-display text-blue-400">~</span>{title}
+        <a className="mb-8 w-1/2 text-lg font-black leading-none text-gray-700 no-underline font-display">
+          <span className="text-lg font-black leading-none text-blue-400 font-display">~</span>{title}
         </a>
       </Link>
       <p className="w-1/2 text-sm text-right text-gray-700">
