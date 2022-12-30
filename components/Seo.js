@@ -30,7 +30,7 @@ const Seo = ({ title, description, url, image, canonical }) => {
       <meta property="twitter:image" content={metaImage} />
 
       <meta name="image" content={metaImage} />
-
+      <link rel="me" href="https://hachyderm.io/@fcsonline" />
       <link rel="icon" type="image/png" href="/favicon.png" />
       <link rel="apple-touch-icon" href="/favicon.png" />
 
