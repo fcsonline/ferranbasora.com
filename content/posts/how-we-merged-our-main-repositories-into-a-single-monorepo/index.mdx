@@ -1,0 +1,49 @@
+---
+title: How we merged our main repositories into a single monorepo
+description: >
+  Get a detailed description of how we merged our main repositories into a single monorepo - the reasons, considerations, dos and don’ts, challenges, and wins.
+date: 2022-07-22
+canonical: https://labs.factorialhr.com/posts/how-we-merged-our-main-repositories-into-a-single-monorepo
+thumbnail: dependencies.png
+---
+
+A few weeks ago, we started working on a project that we now want to share with you. After some deep analysis, the development team realized that the Git repository organization we had, which consisted of multiple repositories, was adding complexity to many parts of our daily work.
+
+We previously had four projects with independent life cycles. We had the backend, frontend, mobile, and e2e tests repositories. Whenever we wanted to ship a new feature to production, the developer was responsible for deploying each subproject properly and managing the required orchestration to ensure that the application worked as expected. One example is the classic deployment of the backend, minutes before the frontend or mobile. This caused some concurrency problems when the rollout of the latest version of the backend was not ready, and the frontend app was already in production.
+
+For this reason, we started working on the challenge to merge four of our main repositories into a single mono repository. This would bring to the development team, a better, and more cohesive way of seeing the Factorial product. It would help us to ship features on all levels of the stack with a single pull request, and much better dependency management between projects, and afford us a way to know if we would break an API after a static analysis. In general, it would bring great value to the final quality of the project.
+
+Due to the fact that our project has a solid set of technologies in many places, it is great to share common configuration files to set in place a group of rules and conventions that help us keep raising our code quality every day.
+
+## Embarking on the second big migration - The Dos and Don’ts
+
+As we did with other big migrations, like the [Typescript migration](https://labs.factorialhr.com/posts/how-we-migrated-400k-lines-of-code-from-flow-to-typescript), we listed a set of *dos* and *don’ts* for this migration. Both migrations share many similarities in terms of the topics to take into account. We needed to understand that we were working with more than 100 developers and if we disrupt their daily work, it would have an unacceptable cost.
+
+For this reason, we listed these main topics:
+
+- **Freezing the code was not acceptable:** We can not stop the development *machine in order* to perform an action that takes an undetermined amount of time. Due to this, this migration needed to be as short as possible. As a result, we carried out all the required changes during a single weekend. All developers had a fully working repository next Monday 😊
+- **Git history information had to be preserved:** The history behind each one of the commits of the four repositories has an invaluable price. Understanding the context of a commit helps developers every day. For this reason, we could not afford to lose it during the migration.
+- **All open pull requests will be migrated to the new repository:** Related to the two previous points, the migration had to migrate the open pull requests. This is a challenging point when you are rewriting the whole Git history, but we made it. 💪
+- **Communicate, document, and share:** One important step of this migration was to communicate this change properly to the rest of the team. Everybody needed to be acknowledged in all aspects of it. Many issues during these kinds of migrations arise from miscommunication. Therefore, it’s imperative to take the time to document and communicate all the details about it.
+
+## How did we do it?
+
+One approach we used in the past that helped a lot was to perform the migration by a single written down script with all the directives to consider during the migration.
+
+- In this case, this migration script collected all the git historical information and moved it into subfolders, thanks to [git-filter-repo](https://github.com/newren/git-filter-repo). This tool helped a lot in the performance of this code migration in a reasonable amount of time. Other options like [filter-branch](https://git-scm.com/docs/git-filter-branch) were awfully slow and were discarded.
+
+- To migrate all the existing open pull requests for each repository, we decided to interact with the GitHub GraphQL API and move all the required information into the new repository.
+
+- To make all the required tests for this migration, we “played” in a test repository where we kept running this script and resetting all the stuff when we detected that we were not comfortable with some final results. We kept iterating with this approach until the final result was the desired one.
+
+If you are interested in the details, we prepared a [gist](https://gist.github.com/fcsonline/6f04319b1d7b99a09eb842f7e14aa063) with all the scripts to perform this migration.
+
+In addition, we performed many other manual actions to complete the migration. We tried to reduce the number of manual steps to as minimum as possible. If a step can be written down in the script, it is one less thing to worry about during the migration. Thinking really hard about all the things to do before the migration, no matter how small they are, was very important, and in our case, the list had almost 120 items! 😱
+
+We need to be aware that there is always a small probability that something was not taken into account during the planning phase. In our case, we made a mistake with some of the GitHub actions workflows, where some of the working directories were not properly set.
+
+## Conclusion
+
+Every time you do this kind of migration, there are some thoughts that tell you not to do it 😅. As engineers, the sentence “*Don’t touch it if it works*” takes a relevant meaning during these migrations. But we overcame our fears because we played in a scenario where we were seeing the final result after each script test iteration, like a dry-run. Also, the fact that we had the backup plan of not using the monorepo at all was a great path to abort the migration.
+
+Weeks later, it is safe to conclude that the migration was a success, and every day we get the mentioned benefits. Almost all developers were not affected by this migration and all our environments were ready to work the next Monday.
