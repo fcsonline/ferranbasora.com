@@ -6,7 +6,7 @@ description: >
 tags:
   - rust
 date: 2019-03-02
-repository: https://github.com/fcsonline/drill
+repository: https://github.com/fcsonline/tmux-thumbs
 ---
 
 I'm a daily user of [Tmux](https://github.com/tmux/tmux) as my favorite
