@@ -1,0 +1,145 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import Layout from "./Layout.astro";
+import Bio from "../components/Bio.astro";
+
+type Props = CollectionEntry<"projects">;
+
+const { data, slug } = Astro.props;
+const { title, pubDate, repository } = data;
+
+const projects = (await getCollection("projects")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const projectIndex = projects.findIndex(
+	({ slug: projectSlug }) => projectSlug === slug,
+);
+const previousProject = projects[projectIndex + 1];
+const nextProject = projects[projectIndex - 1];
+const thumbnail = `/img/projects/${slug}/thumbnail.png`
+---
+
+<Layout thumbnail={thumbnail}>
+
+			<article>
+				<header class="mb-8 mt-6">
+					<h1
+						class="mb-6 text-4xl sm:text-5xl lg:text-6xl font-black leading-none font-display"
+					>
+						{title}
+					</h1>
+					<span class="text-sm text-gray-700">
+						<svg
+							class="w-4 inline mr-1 mb-1"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+							></path>
+						</svg>
+
+						<FormattedDate date={pubDate} />
+					</span>
+				</header>
+				<div class="mb-4 prose-sm prose sm:prose lg:prose-lg">
+					<slot />
+				</div>
+				<div class="mt-8">
+					<span class="text-lg font-bold text-gray-700">
+						Repository:
+					</span>
+
+					<a
+						href={repository}
+						target="_blank"
+						rel="noreferrer noopener nofollow"
+						class="text-lg font-bold ml-2"
+					>
+						<svg
+							class="w-6 inline mr-1 mb-1"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+							></path>
+						</svg>
+						{title}
+					</a>
+				</div>
+			</article>
+			<nav class="flex justify-between mb-10 mt-10">
+				{
+					previousProject ? (
+						<a
+							class="text-lg font-bold"
+							href={`/projects/${previousProject.slug}`}
+						>
+							<svg
+								class="w-6 inline mr-1 mb-1"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+								/>
+							</svg>
+
+							{previousProject.data.title}
+						</a>
+					) : (
+						<div />
+					)
+				}
+				{
+					nextProject ? (
+						<a
+							class="text-lg font-bold"
+							href={`/projects/${nextProject.slug}`}
+						>
+							{nextProject.data.title}
+
+							<svg
+								class="w-6 inline ml-1 mb-1"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+								/>
+							</svg>
+						</a>
+					) : (
+						<div />
+					)
+				}
+			</nav>
+			<hr class="mt-10" />
+			<footer>
+			  <Bio extraClass="mt-8 mb-16" />
+			</footer>
+</Layout>

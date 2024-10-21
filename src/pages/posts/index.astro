@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import Post from "../../components/Post.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const posts = (await getCollection("posts")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<Layout>
+	<section>
+		<h3 class="mt-16 mb-8 text-3xl font-bold text-gray-700 font-display">All articles</h3>
+		{posts.map((post) => <Post {...post} />)}
+	</section>
+</Layout>

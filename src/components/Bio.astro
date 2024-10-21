@@ -1,0 +1,40 @@
+---
+import { metadata } from "../consts";
+
+type Props = {
+  extraClass: string;
+};
+
+const { extraClass } = Astro.props;
+---
+
+<div class:list={["flex flex-row", extraClass]}>
+  <div
+    class="flex-shrink-0 mb-0 mr-3 rounded-full w-14 h-14 relative overflow-hidden"
+  >
+    <img src="/img/profile.jpg" alt={metadata.author.name} width="387" height="387" />
+  </div>
+  <p class="text-base leading-7">
+    Hi there 👋, I’m {metadata.author.name}, Software Engineer. I write this
+    <a class="ml-1" href="/"> blog </a>, build
+    <a
+      class="ml-1"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      href="https://www.factorialhr.com"
+    >
+      Factorial
+    </a> and publish the best I read on
+    <a
+      class="ml-1"
+      target="_blank"
+      rel="noreferrer noopener nofollow"
+      href={`https://twitter.com/${metadata.social.twitter}`}
+    >
+      Twitter
+    </a>.
+  </p>
+  <p class="text-sm text-gray-700">
+    {metadata.author.summary}
+  </p>
+</div>

@@ -1,0 +1,16 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Project from "../../layouts/Project.astro";
+
+const projects = await getCollection("projects");
+type Props = CollectionEntry<"projects">;
+
+const { slug } = Astro.params;
+const project = projects.find((page) => page.slug === slug);
+if (!project) return Astro.redirect("/404");
+const { Content } = await project.render();
+---
+
+<Project {...project}>
+	<Content />
+</Project>
