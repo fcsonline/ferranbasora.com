@@ -1,2 +1,0 @@
-Contact: fcsonline@gmail.com
-Encryption: https://ferranbasora.com/.well-known/pgp-key.txt
