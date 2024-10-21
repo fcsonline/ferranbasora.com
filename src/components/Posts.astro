@@ -1,0 +1,16 @@
+
+---
+import type { CollectionEntry } from 'astro:content';
+import Post from './Post.astro';
+
+interface Props {
+    posts: CollectionEntry<"posts">[]
+}
+
+const { posts } = Astro.props
+---
+{
+  posts.map((post) => (
+    <Post {...post} />
+  ))
+}

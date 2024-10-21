@@ -1,0 +1,131 @@
+---
+title: How we migrated 400K+ lines of code from Flow to TypeScript
+description: >
+  How we migrated from Flow to TypeScript, the challenges faced and how they were surmounted in order to ensure a safe landing on the other side.
+pubDate: 2022-02-07
+canonical: https://labs.factorialhr.com/posts/how-we-migrated-400k-lines-of-code-from-flow-to-typescript
+---
+
+When Factorial was born, there was a *battle* in the web ecosystem to decide which JavaScript type system was the *de* *facto one*. The two major contenders were *Flow* from Facebook and *Typescript* from Microsoft. In terms of features, there didn’t seem to be a lot of difference, however, Flow was a bit ahead, having support for nice features like *async/await* and *decorators.* Not to mention, at the time, it did play better with React since it was birthed at Facebook.
+
+Coming from a time when type-checking was not the in thing in the industry (frontend or backend), adding a type system to the MVP, irrespective of which, was already a bar raise in terms of code quality and maintenance. It is no doubt you’ve made the right guess, we did go with *Flow*.
+
+As time crept by, Typescript began to demonstrate dominance in this sector. It presented a faster evolution, a much bigger community, quite a number of typed libraries, better support in plugins and IDE’s and many other advantages such as a widespread adoption within the npm ecosystem — which resulted in many (if not most) of the libraries having types publicly available.
+
+On the other hand, we had begun to endure a lot of pain with the Flow checker in terms of endless analysis and memory leaks, and even though the Typescript checker was not a marvel in terms of performance, its granularity in relation to the number of flags during configuration had become really attractive. As you must have rightly guessed again, we decided to jump ship 😄 .
+
+## Embarking on the big migration - The Dos and Don’ts
+
+During an initial review of the intended approach, we listed a set of constraints to work within, in order to make the migration a success. The list included the following:
+
+- **Freezing the code was not acceptable:** Imagine telling the development team, “hey 👋 , we want to run a crazy code migration which will last an undefined amount of time and as a result, you’ll have to pause work...”, unrealistic right? Stopping the development machine would have added too many risks to the project.
+- **Git history needed to be preserved:** The source of the code is much more than the lines of code that comprise it. It is the history behind each one of those lines, and it provides the usefulness of navigation. It would have been a pity to lose it forever due to a code migration.
+- **We didn’t want to interfere with pull requests in progress when the final migration happens:** Related to the two previous points, it was our intention to make the process easy in terms of open pull requests after the migration, so as to avoid too many conflicts and headaches.
+- **A split-brain was not an option:**  Many tutorials explain the capability of having Typescript among JavaScript files, thereby adopting the process of a progressive migration. However, we wanted to prevent having a *split-brain* in our team- not knowing which technology to use at a certain point in time and elongating the migration for an undefined amount of time.
+
+These constraints weren’t too difficult to overlook, but as you will see, we tried to apply them as much as possible, defining the long-term challenges of the migration.
+
+## Caught Between Two - What do we do?
+
+Prior to starting work on the migration, we researched other teams out there with the same challenge of migrating a huge codebase from Flow (or Javascript) to Typescript. We did learn a lot, and we took home some great points to consider before starting the migration.
+
+This led us to two options as it regards the strategy to migrate the code:
+
+- **Option A:** Migrate big areas of our codebase to minimize the split-brain problem. This would involve progressive migration, beginning with folders without dependencies.
+- **Option B:** Create a “one-shot” script to migrate the whole codebase. This would be extremely difficult to get right, as it would effectively involve being able to translate every bit of Flow to TypeScript in an automated manner.
+
+In the end, we decided on a mix of both approaches (well, who wouldn’t want the best of both worlds?). We found a big chunk of our code that was not coupled to the rest of the files and it became a nice target for the migration and validating the idea of having Typescript in production. Surprisingly enough, we began with this portion and its delivery was a success 🎉 — we had just validated that Flow and TypeScript could live side-by-side. As a result of this, we felt comfortable delivering the rest of the source code in one shot.
+
+## Another Dilemma? - A new tool for the toolshed
+
+- **[Ts-migrate](https://github.com/airbnb/ts-migrate)**: One of the most brilliant tools found was `ts-migrate` from Airbnb, which proposes to migrate Javascript codebases automatically, taking into account the Typescript Language Server output to decide what to do with each one of the offenses that appeared. We discarded this path because it was not fully aligned with the fact that we were migrating from Flow and not from a vanilla Javascript project.
+- **[Flow-to-ts](https://github.com/Khan/flow-to-ts)**: One of the main tools adopted for this migration was `flow-to-ts` from Khan Academy. It was a fundamental piece for this migration, and we are thankful for all the work behind it. We'll talk more about why we chose this later.
+
+## Very well, Shall we begin?
+
+To abide by the most important constraint mentioned above (avoid a code freeze), we tried to merge as much innocuous code as possible into the master branch. By this, we mean pushing all the Typescript configuration files, typing definitions, etc.
+
+On the other hand, we had a branch with a Bash script that had all the steps to proceed with the migration. Below is a summary of this script in steps:
+
+1. Run a set of custom JsCodeShift transformations
+2. Git rename all files from `js` and `jsx` to `ts` and `tsx`
+3. Run the `flow-to-ts` transformation on all of them
+4. Run linting and formatting tools to stabilize the format
+5. Run the `tsc` validation and review the offenses
+
+### 1. Custom JsCodeShift transformations
+
+With the above steps in mind, we followed an iterative path of decreasing the number of existing offenses detected by `tsc`. For all the offenses that appeared repeatedly, we tried to code some [JSCodeShift](https://github.com/facebook/jscodeshift) transformations. We used [ASTExplorer](http://astexplorer.net/)  intensively as a playground to code our custom transformations. Seeing that we were coming from a Flow code base, we took advantage of it, and automatically tweaked the code related to types, in order to ease the job leading to `flow-to-ts` step.
+
+In this step, we ended up with more than 10 custom transformations, which were boosted reducing all of them at the same time.
+
+```jsx
+module.exports = function (file, api, options) {
+  const fixes = [
+    transformation1,
+    transformation2,
+    transformation3,
+		...
+  ]
+
+  return fixes.reduce((src, fix) => {
+    if (typeof src === 'undefined') {
+      return
+    }
+
+    return fix({ ...file, source: src }, api, options)
+  }, file.source)
+}
+```
+
+### 2. Git rename
+
+Following the script, the next important step was the file rename. We did it with `git mv` to keep the Git history as much as possible:
+
+```bash
+find $@ -iname "*.js" | while read line; do git mv -- $line ${line%.js}.ts; done;
+find $@ -iname "*.jsx" | while read line; do git mv -- $line ${line%.jsx}.tsx; done;
+```
+
+It is a simple change that can be easily missed but really significant in the long term.
+
+### 3. Run flow-to-ts
+
+On getting to this step, the script performed the main transformation, using the `flow-to-ts` package. This is a fundamental tool for Flow projects because it knows many Flow patterns that have a deterministic way to be mapped into Typescript. This is internally a huge JSCodeShift transformation, but with some preconfigured settings that make this tool easier to work with.
+
+You can find a nice playground to understand how this package works [here](https://flow-to-ts.netlify.app/).
+
+### 4. Linting and formatting
+
+Although `flow-to-ts` uses [recast](https://github.com/benjamn/recast) underneath and tries to keep the original code formatting as much as possible, there are some previous transformations that create new code that never existed before. This code needed to be formatted to match our internal rules.
+
+This step was a bit slow, but it was really worth it. Getting a result that was as close as possible to the original code was crucial to preserve the Git history.
+
+### 5. Validate with `tsc` and review
+
+Having this script working, the only missing step to complete the migration was to solve the rest of the offenses that were not repetitive. To be honest, this was the hard part, because we had to go through each one of them and resolve them. The cool thing about this process and having Flow in our codebase was that we were able to keep pushing type fixes into master without modifying the behavior of the application. Those fixes were properly handled by the iterative process after rebasing from master.
+
+## What a ride! - Take-home lessons after a safe landing
+
+Yes, we did it! Taking in account the first migration and the big one, we migrated 400k plus lines of code to TypeScript and boy! we did learn some valuable lessons.
+
+![flow-to-ts-changes.png](/img/posts/how-we-migrated-400k-lines-of-code-from-flow-to-typescript/flow-to-ts-changes.png)
+
+ A few of them worth mentioning are:
+
+- **Be transparent and communicative all the way, in order to get a buy-in from the team**. The worst possible scenario is doing an insane amount of work in misalignment with each one of the team members. We recommend that you share, involve, and document, each one of the steps, milestones, and key dates involved, instead of hoarding such information.
+- **Stock up before embarking on the migration**. It is a long process that will require a deep understanding of your codebase, and you will probably find blockers that will force you to redo previous jobs in order to accommodate the last step. An example in our case was the usage of decorators that bothered the `flow-to-ts` step.
+- **Try to picture where the code will stand after the migration and ask the right questions**. Would all the tools be ready after the migrations? What would happen with all those open pull requests? Will there be linting and formatting issues after the migration? For us, these kinds of questions were answered before the merge.
+- **Do well to squash all the commits related to the migration into a single commit**. This will ease the path during the deployment and if something unexpected pops in, it is the best way to roll it back.
+
+## Are we done? Not today! - Next steps
+
+Our journey with Typescript doesn’t end here. In fact, it is just the beginning! After a few days of the team adopting the language, we decided to enable the `strict` flag in the compiler. Fortunately for us, we can do this gradually since you can include those flags one at a time.
+
+We are also considering other tools and opportunities as well. For example, we currently employ the use of Webpack to build our application, but we have begun to consider [esbuild](https://github.com/evanw/esbuild) and [swc](https://swc.rs/) since both compilers have better support for Typescript than Flow. Be sure that we would keep you updated on whatever path we choose in this regard 🤞
+
+## We did it - You can too! 💪
+
+A few months ago, we made a bet on the usage of Typescript in our frontend codebase. We analyzed the pros and cons and traced a clear plan for such a big migration. Today, two weeks after, we can confirm that the team, delivers faster, and we have raised the quality threshold. This has ended up in fewer bugs in production and achieved the ultimate goal of happier customers.
+
+We sincerely hope this post helps you if you are in the same situation as we were. 💪

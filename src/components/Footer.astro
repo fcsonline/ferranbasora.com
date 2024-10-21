@@ -1,0 +1,27 @@
+---
+import { metadata } from "../consts";
+
+const today = new Date();
+---
+
+<footer class="flex flex-row w-full">
+	<a
+		class="mb-8 w-1/2 text-lg font-black leading-none text-gray-700 no-underline font-display"
+		href="/"
+	>
+		<span class="text-lg font-black leading-none text-blue-400 font-display"
+			>~</span
+		>
+
+		{metadata.title}
+	</a>
+	<p class="w-1/2 text-sm text-right text-gray-700">
+		We need a tool™ #rust, #opensource, #security, #webperf
+
+		<br />
+
+		© {today.getFullYear()}, Built with{" "}
+
+		<a href="https://astro.build/">Astro 🚀</a>
+	</p>
+</footer>

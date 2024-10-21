@@ -1,0 +1,32 @@
+---
+import Post from "../components/Post.astro";
+
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { metadata } from "../consts";
+
+const posts = (await getCollection("posts")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const recentPosts = posts.slice(0, 3);
+---
+
+<Layout>
+	<div>
+		<h1 class="mt-6 mb-6 text-4xl font-black leading-none font-display">
+			Welcome, I&apos;m {metadata.author.name}
+		</h1>
+
+		<p class="text-base leading-7 mb-12">
+			On this site I&apos;m going to post technical articles related to
+			software engineering and other interesting stuff. An attempt to
+			present and express my thoughs about any kind of topic about the
+			world around us.
+		</p>
+		<h2 class="mb-8 text-3xl font-bold text-gray-700 font-display">
+			Recent articles
+		</h2>
+		{recentPosts.map((post) => <Post {...post} />)}
+	</div>
+</Layout>
