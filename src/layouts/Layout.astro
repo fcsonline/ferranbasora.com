@@ -2,21 +2,25 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { metadata } from '../consts'
+import { metadata } from "../consts";
 
 type Props = {
-	thumbnail?: string
-}
+	thumbnail?: string;
+};
 
 const { thumbnail } = Astro.props;
 
-const title = `${metadata.author.name} - Home page`
-
+const title = `${metadata.author.name} - Home page`;
 ---
+
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={metadata.description} image={thumbnail} />
+		<BaseHead
+			title={title}
+			description={metadata.description}
+			image={thumbnail}
+		/>
 	</head>
 
 	<body>
@@ -29,3 +33,16 @@ const title = `${metadata.author.name} - Home page`
 		</div>
 	</body>
 </html>
+
+<script>
+	function tweakExternalLinks() {
+		document.querySelectorAll("a").forEach((link) => {
+			if (link.hostname === location.hostname) return
+
+			link.setAttribute("target", "_blank");
+			link.setAttribute("rel", "noopener noreferrer");
+		});
+	}
+
+	tweakExternalLinks()
+</script>
