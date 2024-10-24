@@ -12,7 +12,12 @@ const { extraClass } = Astro.props;
   <div
     class="flex-shrink-0 mb-0 mr-3 rounded-full w-14 h-14 relative overflow-hidden"
   >
-    <img src="/img/profile.jpg" alt={metadata.author.name} width="387" height="387" />
+    <img
+      src="/img/profile.jpg"
+      alt={metadata.author.name}
+      width="387"
+      height="387"
+    />
   </div>
   <p class="text-base leading-7">
     Hi there 👋, I’m {metadata.author.name}, Software Engineer. I write this

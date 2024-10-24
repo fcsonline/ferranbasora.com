@@ -1,16 +1,12 @@
-
 ---
-import type { CollectionEntry } from 'astro:content';
-import Post from './Post.astro';
+import type { CollectionEntry } from "astro:content";
+import Post from "./Post.astro";
 
 interface Props {
-    posts: CollectionEntry<"posts">[]
+  posts: CollectionEntry<"posts">[];
 }
 
-const { posts } = Astro.props
+const { posts } = Astro.props;
 ---
-{
-  posts.map((post) => (
-    <Post {...post} />
-  ))
-}
+
+{posts.map((post) => <Post {...post} />)}

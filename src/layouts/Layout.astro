@@ -6,7 +6,7 @@ import { metadata } from "../consts";
 import PostHog from "../components/PostHog.astro";
 
 type Props = {
-	thumbnail?: string;
+  thumbnail?: string;
 };
 
 const { thumbnail } = Astro.props;
@@ -16,35 +16,35 @@ const title = `${metadata.author.name} - Home page`;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead
-			title={title}
-			description={metadata.description}
-			image={thumbnail}
-		/>
-		<PostHog />
-	</head>
+  <head>
+    <BaseHead
+      title={title}
+      description={metadata.description}
+      image={thumbnail}
+    />
+    <PostHog />
+  </head>
 
-	<body>
-		<div class="max-w-screen-md px-4 py-12 mx-auto antialiased font-body">
-			<Header />
-			<main>
-				<slot />
-			</main>
-			<Footer />
-		</div>
-	</body>
+  <body>
+    <div class="max-w-screen-md px-4 py-12 mx-auto antialiased font-body">
+      <Header />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
 </html>
 
 <script>
-	function tweakExternalLinks() {
-		document.querySelectorAll("a").forEach((link) => {
-			if (link.hostname === location.hostname) return
+  function tweakExternalLinks() {
+    document.querySelectorAll("a").forEach((link) => {
+      if (link.hostname === location.hostname) return;
 
-			link.setAttribute("target", "_blank");
-			link.setAttribute("rel", "noopener noreferrer");
-		});
-	}
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+    });
+  }
 
-	tweakExternalLinks()
+  tweakExternalLinks();
 </script>
