@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { metadata } from "../consts";
+import PostHog from "../components/PostHog.astro";
 
 type Props = {
 	thumbnail?: string;
@@ -21,6 +22,7 @@ const title = `${metadata.author.name} - Home page`;
 			description={metadata.description}
 			image={thumbnail}
 		/>
+		<PostHog />
 	</head>
 
 	<body>
