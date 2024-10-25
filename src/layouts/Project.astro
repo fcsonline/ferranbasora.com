@@ -8,7 +8,7 @@ import Bio from "../components/Bio.astro";
 type Props = CollectionEntry<"projects">;
 
 const { data, slug } = Astro.props;
-const { title, pubDate, repository } = data;
+const { title, description, pubDate, repository } = data;
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -22,7 +22,7 @@ const nextProject = projects[projectIndex - 1];
 const thumbnail = `/img/projects/${slug}/thumbnail.png`;
 ---
 
-<Layout thumbnail={thumbnail} title={title}>
+<Layout thumbnail={thumbnail} title={title} description={description}>
   <article>
     <header class="mb-8 mt-6">
       <h1
