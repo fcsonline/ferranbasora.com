@@ -10,7 +10,7 @@ const { data, body } = Astro.props;
 const { title, pubDate, canonical, thumbnail } = data;
 ---
 
-<Layout thumbnail={thumbnail}>
+<Layout thumbnail={thumbnail} title={title}>
   <article>
     <header class="mb-8 mt-6">
       <h1

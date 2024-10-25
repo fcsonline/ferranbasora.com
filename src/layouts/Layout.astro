@@ -7,18 +7,17 @@ import PostHog from "../components/PostHog.astro";
 
 type Props = {
   thumbnail?: string;
+  title?: string;
 };
 
-const { thumbnail } = Astro.props;
-
-const title = `${metadata.author.name} - Home page`;
+const { thumbnail, title = "Home page" } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <BaseHead
-      title={title}
+      title={[metadata.author.name, title].join(" | ")}
       description={metadata.description}
       image={thumbnail}
     />
