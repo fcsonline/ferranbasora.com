@@ -3,7 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { metadata } from "../consts";
-import PostHog from "../components/PostHog.astro";
+import Plausible from "../components/Plausible.astro";
 
 type Props = {
   thumbnail?: string;
@@ -22,7 +22,7 @@ const { thumbnail, title, description } = Astro.props;
       description={description ?? metadata.description}
       image={thumbnail ?? "/img/profile.jpg"}
     />
-    <PostHog />
+    <Plausible />
   </head>
 
   <body>
