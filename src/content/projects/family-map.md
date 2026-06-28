@@ -11,10 +11,10 @@ repository: https://github.com/fcsonline/family-map
 vibeCoded: true
 ---
 
-Every family has that one person who keeps the family history in their head, on
-bits of paper, or in a spreadsheet only they understand. I wanted a way to turn
-that into something you can look at and move around, without signing up for a
-family history site or paying every month.
+My father has spent years putting together our family's history, going all the
+way back to the 1800s. All of it lived in notes and spreadsheets, and I wanted
+to give it a nicer home: something you can actually look at and move around,
+instead of reading down a long list of names.
 
 Family Map is a small viewer built with React Flow. You give it a CSV file with
 people, their parents, dates and a photo, and it draws the tree on a board you

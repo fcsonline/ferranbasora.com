@@ -11,8 +11,10 @@ repository: https://github.com/fcsonline/swipebin
 vibeCoded: true
 ---
 
-My photo folders are full of near-copies, blurry shots and screenshots I meant
-to delete months ago. Cleaning them up on a laptop is no fun, so I never do it.
+I wanted a really fast way to clean up the folders that fill up the most, like
+Downloads or my raw camera photos. They end up full of near-copies, blurry
+shots and screenshots I meant to delete months ago, and going through them on a
+laptop is no fun, so I never do it.
 
 SwipeBin turns that job into something you can do on the couch with your phone.
 You point it at one or more folders and it shows you the photos one at a time.
