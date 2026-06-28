@@ -1,0 +1,142 @@
+---
+title: Work-stealing for CI
+description: How specbandit cut testing time by 25%
+pubDate: 2026-05-07
+canonical: https://labs.factorialhr.com/posts/work-stealing-for-ci-specbandit
+thumbnail: /img/posts/work-stealing-for-ci-specbandit/cover.png
+---
+
+_Co-written with [David Morcillo](https://github.com/beagleknight)._
+
+Your test suite keeps getting slower. What used to take 5 minutes now takes 30.
+You add more parallel runners and split tests statically across them. It helps,
+but one runner always finishes last while the others sit idle. This is the
+straggler problem.
+
+The standard fix is to collect timing data from previous runs and use it to
+distribute files more evenly. Some tools do this with a
+[knapsack-style algorithm](https://en.wikipedia.org/wiki/Bin_packing_problem):
+given N workers and a set of files with known durations, pack them into N bins
+so that the heaviest bin is minimized. It's a solid approach in theory. In
+practice, it requires collecting and storing timing data somewhere, keeping it
+fresh, and hoping that last run's timings are a good predictor of this run's
+timings. They often aren't. A test that took 2 seconds yesterday might take 15
+today because someone added a new factory. The database gets slow on a
+particular CI machine. The timing file goes stale over a holiday weekend. You
+end up building infrastructure to maintain infrastructure.
+
+There's a simpler way. And it's been around since 1995.
+
+## Work-stealing
+
+Work-stealing is one of those ideas that keeps showing up in computer science
+because it just works. Instead of deciding upfront who does what, you put all
+the work in a shared pile and let workers grab from it whenever they're free.
+
+The pattern first appeared in [Cilk](https://en.wikipedia.org/wiki/Cilk) for
+parallel computation, and spread quickly because the results were so good.
+[Java's ForkJoinPool](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html),
+[Go's goroutine scheduler](https://go.dev/src/runtime/proc.go),
+[Intel TBB](https://github.com/oneapi-src/oneTBB), and
+[Tokio](https://tokio.rs/) (Rust's async runtime) all use variants of it.
+
+Why does everyone keep reinventing this? Because it has a beautiful property:
+self-balancing. Fast workers naturally take more work. Slow workers take less.
+Everyone finishes at roughly the same time. No prediction needed. No historical
+data needed. No bin-packing needed.
+
+The key insight for CI: all workers finish at roughly the same time. No
+stragglers. No idle machines burning money.
+
+![Work distribution with work-stealing](/img/posts/work-stealing-for-ci-specbandit/work-stealing.png)
+
+## Applying this to CI
+
+`specbandit` takes this pattern and applies it to test execution. The design is
+deliberately minimal.
+
+Before any workers start, a "push" step collects all test file paths, shuffles
+them, and puts them into a shared queue. The shuffle matters more than you'd
+think. Without it, files tend to be pushed in directory order, which often means
+slow integration tests end up clustered together at the tail of the queue.
+Whichever worker happens to steal those last batches gets an unfairly heavy
+load. Shuffling breaks up these clusters so that slow and fast files are spread
+randomly. Simple trick, big difference.
+
+Then N workers (your CI matrix jobs) start in parallel and begin stealing
+batches of files from that queue.
+
+The only technical requirement worth mentioning is atomicity. When multiple
+workers reach into the queue simultaneously, each one must get a distinct set of
+files. No duplicates, no gaps. The queue backend provides this guarantee out of
+the box, meaning concurrent workers will never receive the same file. This
+single property is what makes the whole thing work without locks, coordination
+protocols, or any of the distributed systems headaches you'd normally expect.
+
+Workers keep stealing batches until the queue is empty. If a batch fails, the
+worker records the failure and keeps going. It doesn't block other workers or
+leave unconsumed files behind.
+
+That's... pretty much it. No leader election. No distributed state. No timing
+databases. Just a shuffled list and an atomic pop.
+
+## Open source, two flavors
+
+`specbandit` is open source and available in two languages:
+
+- Ruby: [github.com/factorialco/specbandit](https://github.com/factorialco/specbandit).
+  Native RSpec support (runs specs in-process, no subprocess overhead) plus a
+  generic CLI adapter for any test runner.
+- Node.js: [github.com/factorialco/specbanditjs](https://github.com/factorialco/specbanditjs).
+  Dedicated Jest and Cypress adapters, plus a generic CLI adapter for tools like
+  Vitest.
+
+Both use the exact same protocol. Pick the one that matches your stack.
+
+## The numbers
+
+After adopting `specbandit`, we saw a ~25% reduction in wall-clock CI time. Nice.
+But the more interesting metric is efficiency.
+
+CI efficiency can be defined as:
+
+```
+efficiency = total_test_time / (num_workers × wall_clock_time)
+```
+
+With static splitting, efficiency drops because of the straggler effect. If you
+have 4 workers and one takes twice as long as the others, three workers sit idle
+for half the run. Your efficiency might land around 60-70%.
+
+With work-stealing, all workers stay busy until the queue is drained, and they
+finalize at nearly the same time. Efficiency approaches the theoretical maximum.
+
+Here's what the change looks like in practice:
+
+![Worker utilization: static splitting vs work-stealing](/img/posts/work-stealing-for-ci-specbandit/worker-utilization.png)
+
+Same total work. Better distribution. All workers finishing together instead of
+three waiting for one.
+
+## Not everything is beautiful
+
+Of course, there's a tradeoff. The shared queue is backed by Redis, which means
+Redis becomes your single point of failure. If it goes down mid-run, workers
+can't steal and your CI stalls. This is a real concern, but a solvable one. You
+can roll out high-availability mechanisms (sentinel, clustering) to make it
+always available. In practice, a managed or well-configured Redis instance is
+reliable enough that this rarely becomes an issue.
+
+At Factorial we have a self-hosted CI cluster with more than 100 machines. At
+that scale, efficiency and reliability aren't nice-to-haves, they're essential.
+`specbandit` helps us keep all those machines busy and finishing together
+instead of wasting cycles waiting on stragglers.
+
+## Conclusion
+
+Work-stealing has been battle-tested across decades of parallel computing. From
+parallel runtimes to goroutine schedulers to your CI pipeline, the pattern
+naturally fits anywhere you have uneven work and multiple consumers.
+
+If your CI has the straggler problem (and let's be honest, it probably does),
+give `specbandit` a try. Sometimes the best solutions are the boring ones.
