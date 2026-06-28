@@ -1,8 +1,8 @@
 ---
 title: family-map
 description: >
-  A small family tree viewer. Import a CSV, explore the tree on a pannable
-  canvas, and keep the data on your own machine.
+  A small family tree viewer. Load a CSV file, move around the tree on screen,
+  and keep the data on your own computer.
 tags:
   - react
   - javascript
@@ -11,20 +11,20 @@ repository: https://github.com/fcsonline/family-map
 vibeCoded: true
 ---
 
-Every family has that one relative who keeps the genealogy in their head, on
-scraps of paper, or in a spreadsheet that only they understand. I wanted a way
-to turn that into something you can actually look at and move around, without
-signing up for a genealogy site or paying a subscription.
+Every family has that one person who keeps the family history in their head, on
+bits of paper, or in a spreadsheet only they understand. I wanted a way to turn
+that into something you can look at and move around, without signing up for a
+family history site or paying every month.
 
-Family Map is a small viewer built on React Flow. You feed it a CSV with people,
-their parents, birth and death dates and a photo, and it lays out the tree on a
-canvas you can pan and zoom. There is search with keyboard navigation, an editor
-to add and fix people, and a panel for longer biographies.
+Family Map is a small viewer built with React Flow. You give it a CSV file with
+people, their parents, dates and a photo, and it draws the tree on a board you
+can drag around and zoom. There is a search box you can use from the keyboard, a
+simple way to add and edit people, and a panel for longer life stories.
 
-By default everything lives in your browser through IndexedDB, so the data never
-leaves your machine. If you would rather share it across devices, there is a
-self-hosted mode backed by SQLite that you run with Docker. CSV import and export
-work in both modes, so you are never locked in.
+By default everything is saved in your own browser, so the data never leaves
+your computer. If you want to share it across devices, you can run a shared
+version with Docker instead. You can load and save CSV files either way, so your
+data is always yours to take.
 
 It is meant to be simple. It does one thing: show your family clearly, with the
-data under your control.
+data in your hands.
