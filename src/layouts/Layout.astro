@@ -9,9 +9,10 @@ type Props = {
   thumbnail?: string;
   title?: string;
   description?: string;
+  canonical?: string;
 };
 
-const { thumbnail, title, description } = Astro.props;
+const { thumbnail, title, description, canonical } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,6 +22,7 @@ const { thumbnail, title, description } = Astro.props;
       title={[metadata.author.name, title ?? "Home page"].join(" | ")}
       description={description ?? metadata.description}
       image={thumbnail ?? "/img/profile.jpg"}
+      canonical={canonical}
     />
     <Plausible />
   </head>
