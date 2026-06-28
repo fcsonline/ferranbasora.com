@@ -8,7 +8,7 @@ import Bio from "../components/Bio.astro";
 type Props = CollectionEntry<"projects">;
 
 const { data, slug } = Astro.props;
-const { title, description, pubDate, repository } = data;
+const { title, description, pubDate, repository, vibeCoded } = data;
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -48,6 +48,30 @@ const thumbnail = `/img/projects/${slug}/thumbnail.png`;
 
         <FormattedDate date={pubDate} />
       </span>
+      {
+        vibeCoded && (
+          <span
+            title="This project was vibe coded: built largely with the help of AI coding assistants."
+            class="inline-flex items-center ml-3 px-2 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 align-middle"
+          >
+            <svg
+              class="w-4 h-4 mr-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-6.714 2.143L12 21l-2.286-6.857L3 12l6.714-2.143L12 3z"
+              />
+            </svg>
+            Vibe coded
+          </span>
+        )
+      }
     </header>
     <div class="mb-4 prose-sm prose sm:prose lg:prose-lg">
       <slot />
