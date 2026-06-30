@@ -1,6 +1,10 @@
 ---
 title: Work-stealing for CI
-description: How specbandit cut testing time by 25%
+description: >
+  Your CI splits tests across runners, but one always finishes last while the
+  rest sit idle. With specbandit we borrowed work-stealing from parallel
+  computing to keep every runner pulling work until the queue is empty, which
+  cut our CI time by about 25%.
 pubDate: 2026-05-07
 canonical: https://labs.factorialhr.com/posts/work-stealing-for-ci-specbandit
 thumbnail: /img/posts/work-stealing-for-ci-specbandit/cover.png
